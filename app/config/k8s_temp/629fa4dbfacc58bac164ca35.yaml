@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dwkyqi-deployment
+  namespace: 333333-ru
+spec:
+  selector:
+    matchLabels:
+      app: dwkyqi
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: dwkyqi
+    spec:
+      containers:
+      - name: dwkyqi
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: dwkyqi-deployment
+              mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: dwkyqi-deployment
+        configMap:
+          name: dwkyqi-deployment
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: dwkyqi-service
+  namespace: 333333-ru
+spec:
+  type: NodePort
+  selector:
+    app: dwkyqi
+  ports:
+    - port: 80
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dwkyqi-deployment
+  namespace: 333333-ru
+data:
+  index.html: |
+    <html>
+    <style>
+    html{
+      background-color:teal;
+    }
+    </style>
+    <h1>Welcome</h1>
+    </br>
+    <h1>Hi! This is a conf  629fa4dbfacc58bac164ca35 of user 333@333.ru</h1>
+    </html

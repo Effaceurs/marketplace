@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jdjsjj-deployment
+  namespace: testgmail-com
+spec:
+  selector:
+    matchLabels:
+      app: jdjsjj
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: jdjsjj
+    spec:
+      containers:
+      - name: jdjsjj
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: jdjsjj-deployment
+              mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: jdjsjj-deployment
+        configMap:
+          name: jdjsjj-deployment
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: jdjsjj-service
+  namespace: testgmail-com
+spec:
+  type: NodePort
+  selector:
+    app: jdjsjj
+  ports:
+    - port: 80
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jdjsjj-deployment
+  namespace: testgmail-com
+data:
+  index.html: |
+    <html>
+    <style>
+    html{
+      background-color:lime;
+    }
+    </style>
+    <h1>Welcome</h1>
+    </br>
+    <h1>Hi! This is a conf  629fa43cfacc58bac164c9cf of user test@gmail.com</h1>
+    </html

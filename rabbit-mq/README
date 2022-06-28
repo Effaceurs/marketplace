@@ -1,0 +1,2 @@
+helm install mu-rabbit stable/rabbitmq --namespace rabbit
+change service type to NODEPORT

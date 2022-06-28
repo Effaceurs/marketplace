@@ -1,0 +1,29 @@
+image: node:14-alpine
+
+definitions: 
+  steps:
+    - step: &build-and-deploy
+        script:
+          - echo 'Build angular app'
+          - apk add aws-cli jq --no-cache
+          - export COGNITO_USERS_POOL_ID=$(aws ssm get-parameter --name 'sb-cognito-users-pool-id' | jq -r '.Parameter.Value')
+          - export COGNITO_APP_CLIENT_ID=$(aws ssm get-parameter --name 'sb-cognito-app-client-id' | jq -r '.Parameter.Value')
+          - (cd app/src/environments && sh ./build-environment.sh | tee environment.prod.ts)
+          - (cd app && npm ci && npm run build -- --prod)
+          - npm ci
+          - npm run build 
+          - npm run cdk deploy -- --require-approval never
+
+pipelines:
+  branches:
+    develop:
+      - step:
+          name: Develop - Deploy
+          deployment: Develop
+          <<: *build-and-deploy
+
+    master:
+      - step:
+          name: Prod - Deploy
+          deployment: Production
+          <<: *build-and-deploy

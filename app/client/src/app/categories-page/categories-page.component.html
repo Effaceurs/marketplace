@@ -1,0 +1,31 @@
+<div class="page-title">
+  <h4>App store</h4>
+</div>
+<div class="row">
+  <section>
+    <div class="example-button-row">
+      <div *ngIf="disabled == true">
+        <div *ngFor="let cat of categories">
+          <br />
+          <div (click)="createNewApp(cat)">
+            <a class="waves-effect waves-light btn-large disabled"
+              ><i class="material-icons right">computer</i
+              >{{ cat.name | uppercase }} - {{ cat.version }}</a
+            >
+          </div>
+        </div>
+      </div>
+      <div *ngIf="disabled == false">
+        <div *ngFor="let cat of categories">
+          <br />
+          <div (click)="createNewApp(cat)">
+            <a class="waves-effect waves-light btn-large"
+              ><i class="material-icons right">computer</i
+              >{{ cat.name | uppercase }} - {{ cat.version }}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

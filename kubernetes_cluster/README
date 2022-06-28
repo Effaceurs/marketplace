@@ -1,0 +1,2 @@
+To make Flannel work initialize k8s cluster with 
+  --pod-network-cidr=10.244.0.0/16

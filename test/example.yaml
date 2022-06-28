@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: MYAPP-deployment
+spec:
+  selector:
+    matchLabels:
+      app: MYAPP
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: MYAPP
+    spec:
+      containers:
+      - name: MYAPP
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: MYAPP-service
+spec:
+  type: NodePort
+  selector:
+    app: MYAPP
+  ports:
+    - port: 80
+      targetPort: 80

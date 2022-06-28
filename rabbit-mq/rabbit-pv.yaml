@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: rabbit-data
+spec:
+  storageClassName: manual 
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 8Gi
+  hostPath:
+    path: /data/rabbit
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem

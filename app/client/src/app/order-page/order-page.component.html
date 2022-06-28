@@ -1,0 +1,29 @@
+
+      <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>ID</th>
+              <th>Replicas</th>
+              <th>Version</th>
+              <th>Owner</th>
+              <th>Date Created</th>
+              <th>URL</th>
+              <th>STATUS</th>
+              
+          </tr>
+        </thead>
+        <tbody *ngFor="let app of applications"> 
+          <tr>
+            <td>{{ app.name }}</td>
+            <td>{{ app._id }}</td>
+            <td>{{ app.replicas }}</td>
+            <td>{{ app.version }}</td>
+            <td>{{ app.user }}</td>
+            <td>{{ app.date }}</td>
+            <td>{{ app.url }}</td>
+            <td>{{ app.status }}</td>
+          </tr>
+        </tbody>
+
+      </table>

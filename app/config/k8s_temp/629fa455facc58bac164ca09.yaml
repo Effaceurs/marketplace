@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sffego-deployment
+  namespace: testgmail-com
+spec:
+  selector:
+    matchLabels:
+      app: sffego
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: sffego
+    spec:
+      containers:
+      - name: sffego
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: sffego-deployment
+              mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: sffego-deployment
+        configMap:
+          name: sffego-deployment
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: sffego-service
+  namespace: testgmail-com
+spec:
+  type: NodePort
+  selector:
+    app: sffego
+  ports:
+    - port: 80
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sffego-deployment
+  namespace: testgmail-com
+data:
+  index.html: |
+    <html>
+    <style>
+    html{
+      background-color:purple;
+    }
+    </style>
+    <h1>Welcome</h1>
+    </br>
+    <h1>Hi! This is a conf  629fa455facc58bac164ca09 of user test@gmail.com</h1>
+    </html
