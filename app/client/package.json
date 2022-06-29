@@ -4,7 +4,8 @@
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.",
   "main": "index.js",
   "scripts": {
-    "start": "ng serve"
+    "start": "ng serve",
+    "generate": "ng g c"
   },
   "author": "",
   "license": "ISC",
@@ -19,7 +20,9 @@
     "@angular/platform-browser": "^13.3.10",
     "@angular/platform-browser-dynamic": "^13.3.10",
     "@angular/router": "^13.3.10",
+    "@types/amqplib": "^0.8.2",
     "@types/angular": "^1.8.4",
+    "amqplib": "^0.10.0",
     "angular": "^1.8.3",
     "core-js": "^3.22.7",
     "materialize-css": "^1.0.0",

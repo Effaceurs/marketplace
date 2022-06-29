@@ -7,6 +7,7 @@ const authRoutes = require('./routes/auth');
 const categoryRoutes = require('./routes/category');
 const orderRoutes = require('./routes/order');
 const deployApp = require('./routes/deploy');
+const deployAppTerraform = require('./routes/deployterraform')
 const cors = require('cors')
 const morgan = require('morgan')
 const keys = require('./config/keys')
@@ -26,5 +27,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/application', orderRoutes);
 app.use('/api/deploy', deployApp);
+app.use('/api/deployterraform', deployAppTerraform);
+
 
 module.exports = app;

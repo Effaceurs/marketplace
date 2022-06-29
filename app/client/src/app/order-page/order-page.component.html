@@ -13,8 +13,8 @@
               
           </tr>
         </thead>
-        <tbody *ngFor="let app of applications"> 
-          <tr>
+        <tbody *ngFor="let app of applications">
+          <tr *ngIf="app.terraform == false">
             <td>{{ app.name }}</td>
             <td>{{ app._id }}</td>
             <td>{{ app.replicas }}</td>
@@ -24,6 +24,5 @@
             <td>{{ app.url }}</td>
             <td>{{ app.status }}</td>
           </tr>
-        </tbody>
-
+      </tbody>
       </table>

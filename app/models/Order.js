@@ -24,6 +24,9 @@ const ordersSchema = new Schema({
   status: {
     type: String,
   },
+  terraform: {
+    type: Boolean,
+  }
 })
 
 module.exports = mongoose.model('orders', ordersSchema)

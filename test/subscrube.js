@@ -8,7 +8,7 @@ amqp.connect('amqp://app:app@192.168.110.132:32224', function(error0, connection
     if (error1) {
       throw error1;
     }
-    let queueName = 'technical'
+    let queueName = 'application'
     channel.assertQueue(queueName, {
       durable: false
     })

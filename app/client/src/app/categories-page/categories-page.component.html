@@ -29,3 +29,34 @@
     </div>
   </section>
 </div>
+<br>
+<h4>App store Terraform</h4>
+
+<div class="row">
+  <section>
+    <div class="example-button-row">
+      <div *ngIf="disabled == true">
+        <div *ngFor="let cat of categories">
+          <br />
+          <div (click)="createNewAppTerraform(cat)">
+            <a class="waves-effect waves-light btn-large disabled"
+              ><i class="material-icons right">computer</i
+              >{{ cat.name | uppercase }} - {{ cat.version }}</a
+            >
+          </div>
+        </div>
+      </div>
+      <div *ngIf="disabled == false">
+        <div *ngFor="let cat of categories">
+          <br />
+          <div (click)="createNewAppTerraform(cat)">
+            <a class="waves-effect waves-light btn-large"
+              ><i class="material-icons right">computer</i
+              >{{ cat.name | uppercase }} - {{ cat.version }}</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

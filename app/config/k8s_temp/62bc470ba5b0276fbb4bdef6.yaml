@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yrlaqa-deployment
+  namespace: sashatest-ru
+spec:
+  selector:
+    matchLabels:
+      app: yrlaqa
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: yrlaqa
+    spec:
+      containers:
+      - name: yrlaqa
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: yrlaqa-deployment
+              mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: yrlaqa-deployment
+        configMap:
+          name: yrlaqa-deployment
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: yrlaqa-service
+  namespace: sashatest-ru
+spec:
+  type: NodePort
+  selector:
+    app: yrlaqa
+  ports:
+    - port: 80
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: yrlaqa-deployment
+  namespace: sashatest-ru
+data:
+  index.html: |
+    <html>
+    <style>
+    html{
+      background-color:yellow;
+    }
+    </style>
+    <h1>Welcome</h1>
+    </br>
+    <h1>Hi! This is a conf  62bc470ba5b0276fbb4bdef6 of user sasha@test.ru</h1>
+    </html

@@ -14,6 +14,7 @@ export class SiteLayoutComponent implements AfterViewInit {
     { url: "/overview", name: "Dashboard" },
     { url: "/myapp", name: "My Applications" },
     { url: "/store", name: "App Store" },
+    { url: "/myappterraform", name: "App Store Terraform" },
   ];
 
   constructor(private auth: AuthService, private router: Router) {}

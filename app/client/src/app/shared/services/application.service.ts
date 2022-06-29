@@ -21,4 +21,8 @@ export class ApplicationService {
   fetch(): Observable<Application[]> {
     return this.http.get<Application[]>('/api/application')
   }
+
+  startDeployTerraform(application: Application): Observable<any>  {
+    return this.http.post<Application>('/api/deployterraform/', application)
+  }
 }

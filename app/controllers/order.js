@@ -20,6 +20,7 @@ module.exports.create = async function (req, res) {
       replicas: req.body.replicas? req.body.replicas : 1,
       url: 'undefined',
       status: 'pending',
+      terraform: req.body.terraform ? true : false
     }).save();
     res.status(200).json(order);
   } catch (error) {
@@ -42,3 +43,5 @@ module.exports.update = async function (req, res) {
     errorHandler(res, error);
   }
 };
+
+

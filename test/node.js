@@ -8,12 +8,12 @@ amqp.connect('amqp://app:app@192.168.110.132:32224', function(error0, connection
     if (error1) {
       throw error1;
     }
-    let queueName = 'technical'
-    let message = 'This is technical'
+    let queueName = 'application'
+    let message = {'1':1}
     channel.assertQueue(queueName, {
       durable: false
     })
-    channel.sendToQueue(queueName, Buffer.from(message))
+    channel.sendToQueue(queueName, Buffer.from(JSON.stringify(message)))
     setTimeout(() => {
       connection.close()
     }, 1000)

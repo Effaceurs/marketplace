@@ -13,6 +13,7 @@ import { OverviewPageComponent } from './overview-page/overview-page.component';
 import { OrderPageComponent } from './order-page/order-page.component';
 import { CategoriesPageComponent } from './categories-page/categories-page.component';
 import { LoaderComponent } from './shared/components/loader/loader.component';
+import { TerraformOrderPageComponent } from './terraform-order-page/terraform-order-page.component';
 
 
 
@@ -27,6 +28,7 @@ import { LoaderComponent } from './shared/components/loader/loader.component';
     OrderPageComponent,
     CategoriesPageComponent,
     LoaderComponent,
+    TerraformOrderPageComponent,
   ],
   imports: [
     BrowserModule,

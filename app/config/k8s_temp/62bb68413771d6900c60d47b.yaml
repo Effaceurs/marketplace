@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: eiruas-deployment
+  namespace: sashatest-ru
+spec:
+  selector:
+    matchLabels:
+      app: eiruas
+  replicas: 1 
+  template:
+    metadata:
+      labels:
+        app: eiruas
+    spec:
+      containers:
+      - name: eiruas
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+        volumeMounts:
+            - name: eiruas-deployment
+              mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: eiruas-deployment
+        configMap:
+          name: eiruas-deployment
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: eiruas-service
+  namespace: sashatest-ru
+spec:
+  type: NodePort
+  selector:
+    app: eiruas
+  ports:
+    - port: 80
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eiruas-deployment
+  namespace: sashatest-ru
+data:
+  index.html: |
+    <html>
+    <style>
+    html{
+      background-color:blue;
+    }
+    </style>
+    <h1>Welcome</h1>
+    </br>
+    <h1>Hi! This is a conf  62bb68413771d6900c60d47b of user sasha@test.ru</h1>
+    </html
