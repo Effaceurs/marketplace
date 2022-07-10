@@ -22,6 +22,7 @@ module.exports.create = async function (req, res) {
       status: 'pending',
       terraform: req.body.terraform ? true : false
     }).save();
+    console.log(order)
     res.status(200).json(order);
   } catch (error) {
     errorHandler(res, error);

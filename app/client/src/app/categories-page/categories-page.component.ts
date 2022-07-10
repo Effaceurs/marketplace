@@ -52,11 +52,12 @@ export class CategoriesPageComponent implements OnInit {
     this.applicationService.add(app).subscribe(response => {
       console.log(response)
       MaterialService.toast(`Application ${response.name} has been added`)
+      this.applicationService.startDeployTerraform(response).subscribe(response => {
+        console.log(response)
+        MaterialService.toast(`Deployment of ${response.name} has started`)
+      })
     })
-    this.applicationService.startDeployTerraform(app).subscribe(response => {
-      console.log(response)
-      MaterialService.toast(`Deployment of ${response.name} has started`)
-    })
+    
   }
   catch (err) {
     console.log(err)

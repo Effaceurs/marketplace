@@ -12,13 +12,15 @@ module.exports.deploy = async function (req, res) {
   amqp.connect(keys.amq, function(error, connection) {;
   if (error) {
     console.log(error);
+    res.status(500).json('the message has not been sended');
+
   }
   connection.createChannel((error, channel) => {
     if (error) {
       console.log(error);
     }
-    let queueName = 'application'
-    let message = {'body': req.body, email, user }
+    let queueName = 'applicationDeploymentRequest'
+    let message = {'body': req.body, email, user, }
     channel.assertQueue(queueName, {
       durable: false
     })
@@ -28,5 +30,5 @@ module.exports.deploy = async function (req, res) {
     }, 1000)
   })
 })
-res.status(200).json('1');
+res.status(200).json('the message has been sended');
 }
