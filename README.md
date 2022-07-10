@@ -1,5 +1,6 @@
 Marketplace 
 
-<img src="https://gitlab.com/-/ide/project/effaceurs90/marketplace/tree/main/-/schema.jpg"
-     alt="Schema"
-/>
+
+1. Schema
+<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/schema.jpg"/>
+
