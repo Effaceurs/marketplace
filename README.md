@@ -1,3 +1,5 @@
-1. create on both nodes
-mkdir -p /data/jenkins
-mkdir -p /data/mongo
+Marketplace 
+
+<img src="https://gitlab.com/-/ide/project/effaceurs90/marketplace/tree/main/-/schema.jpg"
+     alt="Schema"
+/>
