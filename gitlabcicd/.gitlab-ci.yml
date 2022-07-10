@@ -1,0 +1,56 @@
+stages:
+    - preflight
+    - build
+    - push
+preflight:
+    image: 
+      name: alpine:3.14
+      entrypoint:
+        - /usr/bin/env 
+    stage: preflight
+    script:
+        - apk update && apk add gettext
+        - mkdir -p ./terraform/customers/${CUSTOMERNAME}/${ID}
+        - envsubst < ./terraform/templates/${MODULE_NAME}.tf > ./terraform/customers/${CUSTOMERNAME}/${ID}/${MODULE_NAME}.tf
+    artifacts:
+        paths:
+        - ./terraform/customers/${CUSTOMERNAME}/${ID}/*
+
+build:
+    image: 
+      name: hashicorp/terraform 
+      entrypoint:
+      - /usr/bin/env
+      - "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    stage: build
+    script:
+        - cd ./terraform/customers/${CUSTOMERNAME}/${ID}/
+        - terraform init 
+        - terraform apply -auto-approve 
+    artifacts:
+        paths:
+        - ./terraform/customers/${CUSTOMERNAME}/${ID}/*
+
+push:
+    stage: push
+    variables:
+      MODULE_NAME: nginx
+      NAMESPACE: mysupernamespace
+      CUSTOMERNAME: customer2
+    image:
+      name: alpine/git:latest
+      entrypoint:
+        - /usr/bin/env 
+    before_script:
+      - git config --global user.name "${GITLAB_USER_NAME}"
+      - git config --global user.email "${GITLAB_USER_EMAIL}"
+    script:
+      - git remote set-url origin http://gitlab-ci-token:${ACCESS_TOKEN}@192.168.110.134/root/marketplace.git
+      - git add ./terraform/customers/${CUSTOMERNAME}/${ID}/*.tf*
+      - git commit --allow-empty -m "${CUSTOMERNAME}-${NAMESPACE}-${MODULE_NAME}-${ID}-${CI_PIPELINE_ID}"
+      - git push origin HEAD:main -o ci.skip
+    after_script:
+    - mv ./terraform/customers/${CUSTOMERNAME}/${ID}/output.txt ./output.txt 
+    artifacts:
+      paths:
+      - ./output.txt 
