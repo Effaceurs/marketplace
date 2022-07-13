@@ -3,7 +3,7 @@ const amqp = require('amqplib/callback_api');
 const request = require('request');
 const fs = require('fs');
 const StreamZip = require('node-stream-zip');
-const nodeIp = '192.168.110.134'; // need to fix
+let nodeIp = '192.168.110.134'; // need to fix
 
 async function checkStatus(message) {
   let id;

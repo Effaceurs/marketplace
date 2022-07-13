@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from "@angular/core";
+import { AfterViewInit, Component} from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 
@@ -11,11 +11,9 @@ export class SiteLayoutComponent implements AfterViewInit {
 
 
   links = [
-    { url: "/overview", name: "Dashboard" },
-    { url: "/myapp", name: "My Applications" },
-    { url: "/store", name: "App Store" },
-    { url: "/myappterraform", name: "App Store Terraform" },
-  ];
+    { url: "/myapps", name: "My Applications" },
+    { url: "/catalogue", name: "Catalogue" }
+    ];
 
   constructor(private auth: AuthService, private router: Router) {}
 

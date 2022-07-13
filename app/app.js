@@ -1,16 +1,22 @@
-const passport = require('passport')
 const express = require('express');
-const app = express();
-const mongoose = require('mongoose')
-const bodyParser = require('body-parser');
-const authRoutes = require('./routes/auth');
-const categoryRoutes = require('./routes/category');
-const orderRoutes = require('./routes/order');
-const deployApp = require('./routes/deploy');
-const deployAppTerraform = require('./routes/deployterraform')
 const cors = require('cors')
 const morgan = require('morgan')
+
+const mongoose = require('mongoose')
+
 const keys = require('./config/keys')
+const bodyParser = require('body-parser');
+const passport = require('passport')
+
+const app = express();
+
+
+const authRoutes = require('./routes/auth');
+const catalogueRoutes = require('./routes/catalogue');
+const applicationRoutes = require('./routes/application');
+const deployRoutes = require('./routes/deploy');
+
+
 
 mongoose.connect(keys.mongiURI)
 .then(() => console.log('MongoDB connected'))
@@ -23,11 +29,11 @@ app.use(morgan('dev'))
 app.use(cors())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
+
 app.use('/api/auth', authRoutes);
-app.use('/api/category', categoryRoutes);
-app.use('/api/application', orderRoutes);
-app.use('/api/deploy', deployApp);
-app.use('/api/deployterraform', deployAppTerraform);
+app.use('/api/catalogue', catalogueRoutes);
+app.use('/api/application', applicationRoutes);
+app.use('/api/deploy', deployRoutes);
 
 
 module.exports = app;

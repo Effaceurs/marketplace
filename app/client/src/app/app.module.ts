@@ -9,12 +9,12 @@ import {AuthLayoutComponent} from './shared/layouts/auth-layout/auth-layout.comp
 import {SiteLayoutComponent} from './shared/layouts/site-layout/site-layout.component'
 import {RegisterPageComponent} from './register-page/register-page.component'
 import { TokenInterceptor } from "./shared/classes/token.interceptor";
-import { OverviewPageComponent } from './overview-page/overview-page.component';
-import { OrderPageComponent } from './order-page/order-page.component';
-import { CategoriesPageComponent } from './categories-page/categories-page.component';
-import { LoaderComponent } from './shared/components/loader/loader.component';
-import { TerraformOrderPageComponent } from './terraform-order-page/terraform-order-page.component';
-
+import { MyAppsComponent } from "./my-apps-page/my-apps-page.component";
+import { CataloguesPageComponent } from "./catalogue-page/catalogue-page.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatGridListModule} from '@angular/material/grid-list'; 
+import {MatButtonModule} from '@angular/material/button'; 
+import {MatTableModule} from '@angular/material/table'; 
 
 
 @NgModule({
@@ -24,18 +24,19 @@ import { TerraformOrderPageComponent } from './terraform-order-page/terraform-or
     AuthLayoutComponent,
     SiteLayoutComponent,
     RegisterPageComponent,
-    OverviewPageComponent,
-    OrderPageComponent,
-    CategoriesPageComponent,
-    LoaderComponent,
-    TerraformOrderPageComponent,
+    MyAppsComponent,
+    CataloguesPageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatGridListModule,
+    MatButtonModule,
+    MatTableModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

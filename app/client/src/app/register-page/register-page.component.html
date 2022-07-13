@@ -4,7 +4,7 @@
   (ngSubmit)="onSubmit()"
 >
   <div class="card-content">
-    <span class="card-title">Создать аккаунт</span>
+    <span class="card-title">Create account</span>
     <div class="input-field">
       <input
         formControlName="email"
@@ -17,8 +17,8 @@
         class="helper-text red-text"
         *ngIf="form.get('email').invalid && form.get('email').touched"
       >
-        <span *ngIf="form.get('email').errors['required']">Email не должен быть пустым</span>
-        <span *ngIf="form.get('email').errors['email']">Введите корректный email адрес</span>
+        <span *ngIf="form.get('email').errors['required']">Email should not be empty</span>
+        <span *ngIf="form.get('email').errors['email']">Use a valid email</span>
       </span>
     </div>
     <div class="input-field">
@@ -28,15 +28,15 @@
         formControlName="password"
         [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched}"
       >
-      <label for="password">Пароль:</label>
+      <label for="password">Password:</label>
       <span
         class="helper-text red-text"
         *ngIf="form.get('password').invalid && form.get('password').touched"
       >
-        <span *ngIf="form.get('password').errors['required']">Пароль не должен быть пустым</span>
+        <span *ngIf="form.get('password').errors['required']">The password should not be empty</span>
         <span *ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']">
-          Пароль должен быть больше {{form.get('password').errors['minlength']['requiredLength']}} символов.
-          Сейчас {{form.get('password').errors['minlength']['actualLength']}}
+          The password should be longer than {{form.get('password').errors['minlength']['requiredLength']}} symbols.
+          Now {{form.get('password').errors['minlength']['actualLength']}}
         </span>
       </span>
     </div>
@@ -47,7 +47,7 @@
       class="modal-action btn waves-effect"
       [disabled]="form.invalid || form.disabled"
     >
-      Создать
+      Create
     </button>
   </div>
 </form>

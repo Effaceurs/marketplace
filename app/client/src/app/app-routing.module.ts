@@ -5,10 +5,8 @@ import { AuthLayoutComponent } from "./shared/layouts/auth-layout/auth-layout.co
 import { SiteLayoutComponent } from "./shared/layouts/site-layout/site-layout.component";
 import { RegisterPageComponent } from "./register-page/register-page.component";
 import { AuthGuard } from "./shared/classes/auth.guard";
-import { OverviewPageComponent } from "./overview-page/overview-page.component";
-import { OrderPageComponent } from "./order-page/order-page.component";
-import { CategoriesPageComponent } from "./categories-page/categories-page.component";
-import { TerraformOrderPageComponent } from "./terraform-order-page/terraform-order-page.component";
+import { MyAppsComponent } from "./my-apps-page/my-apps-page.component";
+import { CataloguesPageComponent } from "./catalogue-page/catalogue-page.component";
 
 const routes: Routes = [
   {
@@ -24,17 +22,12 @@ const routes: Routes = [
     path: "",
     component: SiteLayoutComponent,
     canActivate: [AuthGuard],
-    children: [{
-      path: 'overview', component: OverviewPageComponent
+    children: [
+    {
+      path: 'myapps', component: MyAppsComponent
     },
     {
-      path: 'myapp', component: OrderPageComponent
-    },
-    {
-      path: 'myappterraform', component: TerraformOrderPageComponent
-    },
-    {
-      path: 'store', component: CategoriesPageComponent
+      path: 'catalogue', component: CataloguesPageComponent
     }],
   },
 ];

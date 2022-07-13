@@ -4,6 +4,7 @@
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.",
   "main": "index.js",
   "scripts": {
+    "ng": "ng",
     "start": "ng serve",
     "generate": "ng g c"
   },
@@ -11,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@angular/animations": "^13.3.10",
+    "@angular/cdk": "^13.3.8",
     "@angular/common": "^13.3.10",
     "@angular/compiler": "^13.3.10",
     "@angular/core": "^13.3.10",

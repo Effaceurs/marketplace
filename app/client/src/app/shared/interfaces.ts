@@ -4,10 +4,11 @@ export interface User {
 }
 
 
-export interface Store {
+export interface Catalogue {
   name: string,
   version: string,
-  _id?: string
+  _id?: string,
+  provider: string
 }
 
 export interface Application {

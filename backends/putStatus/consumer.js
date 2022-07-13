@@ -21,8 +21,9 @@ amqp.connect(keys.amq, function(error0, connection) {;
       durable: false
     })
     channel.consume(queueName,(msg) => {
+      channel.ack(msg)
       order.update(JSON.parse(msg.content.toString()))
-      //channel.ack(msg)
+
     })
   })
 })
