@@ -19,6 +19,8 @@ async function checkStatus(message) {
           REPLICAS: message.body.replicas,
           NAMESPACE: message.user,
           CUSTOMERNAME: message.user,
+          VERSION: message.body.version,
+          PROVIDER: message.body.provider
         },
       },
     },
@@ -79,10 +81,14 @@ async function checkStatus(message) {
         }
       }
     );
-    await new Promise((resolve) => setTimeout(resolve, 5000));
+    await new Promise((resolve) => setTimeout(resolve, 10000));
   }
   if (artifactValue === 'ERROR OCCURED') {
     payload.message.body.status = 'failed';
+    payload.artifact = artifactValue;
+    console.log(payload);
+    console.log('sending a message')
+    return
   } else {
     payload.message.body.status = 'running';
   }

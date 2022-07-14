@@ -24,6 +24,6 @@ export class MyAppsComponent implements OnInit {
   }
 
   displayedColumns: string[] = [ "name", "_id", "replicas", "version", "user", "date", "url", "status"];
-  dataSource = this.applications;
+
 
 }

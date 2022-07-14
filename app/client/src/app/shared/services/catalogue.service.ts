@@ -10,6 +10,10 @@ export class CatalogueService {
   constructor(private http: HttpClient) {
   }
 
+  add(catalogue: Catalogue): Observable<Catalogue> {
+    return this.http.post<Catalogue>('/api/catalogue', catalogue)
+  }
+
   fetch(): Observable<Catalogue[]> {
     return this.http.get<Catalogue[]>('/api/catalogue')
   }

@@ -10,7 +10,6 @@ const passport = require('passport')
 
 const app = express();
 
-
 const authRoutes = require('./routes/auth');
 const catalogueRoutes = require('./routes/catalogue');
 const applicationRoutes = require('./routes/application');

@@ -1,18 +1,24 @@
-<div class="page-title">
-  <h4>Catalogue</h4>
-</div>
+<mat-toolbar>
+  <span>Catalogue</span>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="addNewCatalogueItem()">
+    <mat-icon>add</mat-icon>
+  </button>
+</mat-toolbar>
 
+<br>
 <mat-grid-list cols="4" rowHeight="2:1">
   <div *ngFor="let catalogue of catalogues">
     <div (click)="deploy(catalogue)">
       <mat-grid-tile>
         <div class="button">
-          <button mat-stroked-button color="primary">
-            {{ catalogue.name | uppercase }} -
-            {{ catalogue.version | lowercase }}
+          <button [disabled]="disabled" mat-stroked-button color="primary">
+            {{ catalogue.name | uppercase }} - {{ catalogue.version | lowercase }}
+            [{{ catalogue.provider }}]
           </button>
         </div>
       </mat-grid-tile>
     </div>
   </div>
 </mat-grid-list>
+

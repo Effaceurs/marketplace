@@ -1,5 +1,4 @@
 const mongoose = require('mongoose')
-const { stringify } = require("querystring")
 const Schema = mongoose.Schema
 const applicationSchema = new Schema({
   date: {
@@ -24,8 +23,8 @@ const applicationSchema = new Schema({
   status: {
     type: String,
   },
-  terraform: {
-    type: Boolean,
+  provider: {
+    type: String,
   }
 })
 

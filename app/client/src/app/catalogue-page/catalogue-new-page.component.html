@@ -1,0 +1,18 @@
+<div mat-dialog-content>
+  <h3>Add a new catalogue item</h3>
+
+  <p>Name</p>
+<input matInput [(ngModel)]="data.name">
+<p>Version</p>
+<input matInput [(ngModel)]="data.version">
+<p>Provider</p>
+<mat-select  [(ngModel)]="data.provider">
+  <mat-option *ngFor="let item of provider" [value]="item">
+    {{item}}
+  </mat-option>
+</mat-select>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onYesClick()" cdkFocusInitial>Add</button>
+</div>

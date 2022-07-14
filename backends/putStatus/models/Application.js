@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const ordersSchema = new Schema({
+const applicationSchema = new Schema({
   date: {
     type: Date,
     default: Date.now
@@ -23,11 +23,11 @@ const ordersSchema = new Schema({
   status: {
     type: String,
   },
-  terraform: {
-    type: Boolean,
+  provider: {
+    type: String,
   }
 })
 
-module.exports = mongoose.model('orders', ordersSchema)
+module.exports = mongoose.model('application', applicationSchema)
 
 

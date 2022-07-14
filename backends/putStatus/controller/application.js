@@ -1,4 +1,4 @@
-const Order = require('../models/Order');
+const Application = require('../models/Application');
 let nodeIp = '192.168.110.132'; // need to fix
 
 
@@ -10,7 +10,7 @@ module.exports.update = async function (req, res) {
   const port = req.payload.artifact
   console.log(id,status,port)
   try {
-    const update = await Order.findOneAndUpdate(
+    const update = await Application.findOneAndUpdate(
       {
         _id: id,
       },
@@ -18,8 +18,9 @@ module.exports.update = async function (req, res) {
         url: nodeIp+':'+port
       }
     );
-  return 
+  return 'Item has been updated'
   } catch (error) {
+    consooe.log(error)
     throw (error)
   }
 };

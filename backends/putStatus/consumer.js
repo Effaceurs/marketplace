@@ -1,5 +1,5 @@
 let amqp = require('amqplib/callback_api');
-let order = require('./controller/order')
+let application = require('./controller/application')
 const mongoose = require('mongoose')
 const keys = require('./config/keys');
 
@@ -22,8 +22,8 @@ amqp.connect(keys.amq, function(error0, connection) {;
     })
     channel.consume(queueName,(msg) => {
       channel.ack(msg)
-      order.update(JSON.parse(msg.content.toString()))
-
+      console.log('Message processed')
+      application.update(JSON.parse(msg.content.toString()))
     })
   })
 })

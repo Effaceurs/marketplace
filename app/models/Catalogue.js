@@ -8,8 +8,7 @@ const catalogueSchema = new Schema({
   },
   version: {
     type: String,
-    required: true,
-    default: ''
+    required: true
   },
   provider: {
     type: String,
