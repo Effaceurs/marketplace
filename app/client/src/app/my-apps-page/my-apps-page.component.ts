@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { ApplicationService } from "../shared/services/application.service";
 
 @Component({
@@ -9,7 +9,8 @@ import { ApplicationService } from "../shared/services/application.service";
 export class MyAppsComponent implements OnInit {
   applications = [];
 
-  constructor(private applicationService: ApplicationService) {}
+  constructor(private applicationService: ApplicationService) {
+  }
 
   refresh() {
     this.fetch()
@@ -26,13 +27,15 @@ export class MyAppsComponent implements OnInit {
           replace(/\..+/, '')
           i++
         }
-
         this.applications = result;
       },
       (err) => {
         console.log(err);
       }
     );
+  }
+
+  ngAfterViewInit() {
   }
 
 
