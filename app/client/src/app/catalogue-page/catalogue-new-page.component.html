@@ -1,10 +1,8 @@
 <div mat-dialog-content>
   <h3>Add a new catalogue item</h3>
 
-  <p>Name</p>
-<input matInput [(ngModel)]="data.name">
-<p>Version</p>
-<input matInput [(ngModel)]="data.version">
+  <p>Image</p>
+<input matInput [(ngModel)]="data.image">
 <p>Provider</p>
 <mat-select  [(ngModel)]="data.provider">
   <mat-option *ngFor="let item of provider" [value]="item">

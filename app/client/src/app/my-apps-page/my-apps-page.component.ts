@@ -11,10 +11,22 @@ export class MyAppsComponent implements OnInit {
 
   constructor(private applicationService: ApplicationService) {}
 
-  ngOnInit() {
+  refresh() {
+    this.fetch()
+  }
+
+  fetch() {
     this.applicationService.fetch().subscribe(
       (result) => {
         console.log(result);
+        let i = 0
+        for (let item of result) { 
+          result[i].formattedDate = item.date.toLocaleString().
+          replace(/T/, ' ').   
+          replace(/\..+/, '')
+          i++
+        }
+
         this.applications = result;
       },
       (err) => {
@@ -23,7 +35,12 @@ export class MyAppsComponent implements OnInit {
     );
   }
 
-  displayedColumns: string[] = [ "name", "_id", "replicas", "version", "user", "date", "url", "status"];
+
+  ngOnInit() {
+    this.fetch()
+  }
+
+  displayedColumns: string[] = [ "name", "image", "_id", "replicas", "version", "user", "date", "url", "status"];
 
 
 }

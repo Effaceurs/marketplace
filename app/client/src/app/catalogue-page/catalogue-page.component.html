@@ -12,9 +12,8 @@
     <div (click)="deploy(catalogue)">
       <mat-grid-tile>
         <div class="button">
-          <button [disabled]="disabled" mat-stroked-button color="primary">
-            {{ catalogue.name | uppercase }} - {{ catalogue.version | lowercase }}
-            [{{ catalogue.provider }}]
+          <button mat-stroked-button color="primary">
+            {{ catalogue.image | uppercase }} - [{{ catalogue.provider }}]
           </button>
         </div>
       </mat-grid-tile>

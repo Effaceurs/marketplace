@@ -6,17 +6,21 @@ export interface User {
 
 export interface Catalogue {
   name: string,
+  image: string,
   version: string,
   _id?: string,
-  provider: string
+  provider: string,
+  replicas: number
 }
 
 export interface Application {
   name: string,
+  image: string,
   version: string,
   replicas: number,
   _id?: string
   date: Date,
+  formattedDate: string,
   url: string,
   user: string,
   status: string

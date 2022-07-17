@@ -5,6 +5,18 @@ const fs = require('fs');
 const StreamZip = require('node-stream-zip');
 let nodeIp = '192.168.110.134'; // need to fix
 
+function createDir(file){
+  if (!fs.existsSync(file)){
+    fs.mkdirSync(file, {recursive: true});
+  }
+}
+
+function cleanUp(file){
+  if (fs.existsSync(file)) {
+    fs.rmdirSync('./'+file, {recursive: true});
+  }
+}
+
 async function checkStatus(message) {
   let id;
   let payload = {};
@@ -14,8 +26,9 @@ async function checkStatus(message) {
       url: keys.gitlaburl + keys.gitlabpipeline + keys.gitlabpipelinetoken,
       form: {
         variables: {
-          ID: message.body.name + message.body._id,
-          MODULE_NAME: message.body.name,
+          NAME: message.body.name,
+          ID: 'a' + message.body.name.replace(' ','-') + '-' + message.body.image + '-' + message.body._id,
+          MODULE_NAME: message.body.image,
           REPLICAS: message.body.replicas,
           NAMESPACE: message.user,
           CUSTOMERNAME: message.user,
@@ -29,10 +42,8 @@ async function checkStatus(message) {
       console.log('id - ', id);
     }
   );
-
-  if (fs.existsSync('artifact.zip')) {
-    fs.unlinkSync('artifact.zip');
-  }
+  cleanUp(message.body._id)
+  createDir(message.body._id)  
   await new Promise((resolve) => setTimeout(resolve, 1000));
   let success;
   let artifactValue;
@@ -61,7 +72,9 @@ async function checkStatus(message) {
       function (error, response, body) {
         let jobStatusAnswer = JSON.parse(response.body);
         console.log(jobStatusAnswer.status);
-
+        if (jobStatusAnswer.status === 'skipped' || jobStatusAnswer.status === 'failed' ) {
+          i == 15   
+        }
         if (jobStatusAnswer.status === 'success') {
           success = true;
           jobStatusAnswer.status = 'processed';
@@ -72,22 +85,23 @@ async function checkStatus(message) {
               headers: { 'PRIVATE-TOKEN': keys.gitlabtoken },
               encoding: null,
             })
-            .pipe(fs.createWriteStream('artifact.zip'))
+            .pipe(fs.createWriteStream(`${message.body._id}/artifact.zip`))
             .on('close', function () {
               console.log('File written!');
             });
         } else if (i == 15) {
-          artifactValue = 'ERROR OCCURED';
+          artifactValue = 'err';
         }
       }
     );
     await new Promise((resolve) => setTimeout(resolve, 10000));
   }
-  if (artifactValue === 'ERROR OCCURED') {
+  if (artifactValue === 'err') {
     payload.message.body.status = 'failed';
     payload.artifact = artifactValue;
     console.log(payload);
     console.log('sending a message')
+    sendMessage(payload);
     return
   } else {
     payload.message.body.status = 'running';
@@ -95,7 +109,7 @@ async function checkStatus(message) {
   await new Promise((resolve) => setTimeout(resolve, 2000));
   try {
     const zip = new StreamZip({
-      file: 'artifact.zip',
+      file: `${message.body._id}/artifact.zip`,
       storeEntries: true,
     });
     zip.on('ready', () => {
@@ -106,9 +120,10 @@ async function checkStatus(message) {
       console.log('sending a message')
       sendMessage(payload);
       zip.close();
+      cleanUp(message.body._id)
     });
   } catch {
-    payload.artifact = null;
+    payload.artifact = 'err';
     console.log('sending a message')
     sendMessage(payload);
   }

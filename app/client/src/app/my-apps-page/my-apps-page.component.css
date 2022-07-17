@@ -1,10 +1,13 @@
-.demo-table {
-  width: 90%;
-}
-
 .mat-column {
   width: auto;
   text-align: center;
 }
 
+.mat-table {
+  margin-top: 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
 

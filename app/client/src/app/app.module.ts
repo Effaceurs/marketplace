@@ -11,7 +11,8 @@ import {RegisterPageComponent} from './register-page/register-page.component'
 import { TokenInterceptor } from "./shared/classes/token.interceptor";
 import { MyAppsComponent } from "./my-apps-page/my-apps-page.component";
 import { CataloguesPageComponent } from "./catalogue-page/catalogue-page.component";
-import {DialogOverviewExampleDialog} from "./catalogue-page/catalogue-page.component";
+import {CatalogueNewItem} from "./catalogue-page/catalogue-page.component";
+import {CatalogueNewDeploy} from "./catalogue-page/catalogue-page.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatButtonModule} from '@angular/material/button'; 
@@ -21,7 +22,9 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select'; 
 import {MatToolbarModule} from '@angular/material/toolbar'; 
 import {MatIconModule} from '@angular/material/icon'; 
-
+import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
+import {MatInputModule} from '@angular/material/input'; 
+import {MatCardModule} from '@angular/material/card'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +34,9 @@ import {MatIconModule} from '@angular/material/icon';
     RegisterPageComponent,
     MyAppsComponent,
     CataloguesPageComponent,
-    DialogOverviewExampleDialog
+    CatalogueNewItem,
+    CatalogueNewDeploy,
+
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,10 @@ import {MatIconModule} from '@angular/material/icon';
     MatFormFieldModule,
     MatSelectModule,
     MatToolbarModule,
-    MatIconModule
+    MatIconModule,
+    MatButtonToggleModule,
+    MatInputModule,
+    MatCardModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

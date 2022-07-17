@@ -1,16 +1,16 @@
-const {readFile, writeFile, promises: fsPromises} = require('fs');
+const fs = require('fs');
 
-
-readFile('./nginx.yaml', 'utf-8', function (err, contents) {
-  if (err) {
-    console.log(err);
-    return;
+function createDir(file){
+  if (!fs.existsSync(file)){
+    fs.mkdirSync(file, {recursive: true});
   }
-  
-  const replaced = contents.replace(/name: nginx/g, `name: MYAPP`);
-  const replaced2 = replaced.replace(/app: nginx/g, `app: MYAPP`);
-  writeFile('./example.yaml', replaced2, 'utf-8', function (err) {
-    console.log(err);
-  });
 }
-)
+
+function cleanUp(file){
+  if (fs.existsSync(file)) {
+    fs.rmdirSync('./'+file, {recursive: true});
+  }
+}
+
+createDir('customer/loh')
+cleanUp('customer')

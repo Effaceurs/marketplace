@@ -1,0 +1,71 @@
+<div mat-dialog-content>
+  <h1>Start deployment</h1>
+  <mat-label>Provider</mat-label>
+  <input matInput disabled value="{{ provider }}" />
+
+  <mat-label>Base image</mat-label>
+  <input matInput disabled value="{{ image }}" />
+  <br />
+  <p>Name</p>
+  <input [formControl]="nameFormControl" matInput [(ngModel)]="name" />
+  <mat-error
+    *ngIf="nameFormControl.hasError('required') && nameFormControl.dirty"
+  >
+    Name is <strong>required</strong>
+  </mat-error>
+  <br />
+  <p>Version</p>
+
+  <mat-button-toggle-group
+    [formControl]="versionFormControl"
+    [(ngModel)]="version"
+    aria-label="Font Style"
+  >
+    <mat-button-toggle value="latest">latest</mat-button-toggle>
+    <mat-button-toggle value="1.23.0">1.23.0</mat-button-toggle>
+    <mat-button-toggle value="1.7.8">1.7.8</mat-button-toggle>
+  </mat-button-toggle-group>
+  <br />
+  <br />
+  <p>Replicas</p>
+  <mat-button-toggle-group
+    [formControl]="replicaFormControl"
+    [(ngModel)]="replicas"
+    aria-label="Font Style"
+  >
+    <mat-button-toggle value="1">1</mat-button-toggle>
+    <mat-button-toggle value="2">2</mat-button-toggle>
+    <mat-button-toggle value="3">3</mat-button-toggle>
+  </mat-button-toggle-group>
+  <br />
+  <mat-error
+    *ngIf="
+      replicaFormControl.hasError('required') && replicaFormControl.touched
+    "
+  >
+    Replica number is <strong>required</strong>
+  </mat-error>
+  <br />
+
+  <mat-error
+    *ngIf="
+      versionFormControl.hasError('required') && versionFormControl.touched
+    "
+  >
+    Version number is <strong>required</strong>
+  </mat-error>
+  <br />
+
+  <button
+    mat-button
+    [disabled]="
+      (nameFormControl.hasError('required') && nameFormControl.dirty) ||
+      versionFormControl.hasError('required') ||
+      replicaFormControl.hasError('required')
+    "
+    (click)="onClickDeploy()"
+  >
+    Deploy
+  </button>
+  <button mat-button (click)="onClickCancel()">Cancel</button>
+</div>

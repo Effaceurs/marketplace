@@ -1,11 +1,11 @@
-import { Component, OnInit , Inject} from '@angular/core';
+import { Component, OnInit, Input , Inject} from '@angular/core';
 import { ApplicationService } from "../shared/services/application.service";
 import { CatalogueService } from "../shared/services/catalogue.service";
-import { MaterialService } from "../shared/classes/material.service"
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Catalogue} from '../shared/interfaces'
-
-
+import {Application, Catalogue} from '../shared/interfaces'
+import { MaterialService } from "../shared/classes/material.service"
+import { TouchSequence } from "selenium-webdriver";
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-catalogue-page',
@@ -13,10 +13,6 @@ import {Catalogue} from '../shared/interfaces'
   styleUrls: ['./catalogue-page.component.css']
 })
 export class CataloguesPageComponent implements OnInit {
-  disabled = false
-  name: string;
-  version: string;
-  provider: string[];
   catalogues = []
   
   constructor(private CatalogueService: CatalogueService,
@@ -32,35 +28,16 @@ export class CataloguesPageComponent implements OnInit {
   }
 
   deploy(catalogue){
-    if (this.disabled === true) {
-      return
-    }
-    console.log(catalogue)
-    this.disabled=true
-    const answer = this.applicationService.add(catalogue).subscribe(response => {
-
-      MaterialService.toast(`Requested item has been added to the DB`)
-
-      this.applicationService.deploy(response).subscribe(ans => {
-
-        MaterialService.toast(`Deployment has been started`)
-
-      }, err => {
-        this.disabled=false
-        console.log(err)
-        MaterialService.toast(`Something went wrong`)
-      })
-    }, err => {
-      this.disabled=false
-      console.log(err)
-      MaterialService.toast(`Something went wrong`)    })
-      this.disabled=false
+    const dialogRef = this.dialog.open(CatalogueNewDeploy, {
+      width: '500px',
+      data: catalogue
+    });
   }
 
   addNewCatalogueItem() {
-    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+    const dialogRef = this.dialog.open(CatalogueNewItem, {
       width: '250px',
-      data: {name: this.name, version: this.version, provider: this.provider}
+      data: {}
     });
     dialogRef.afterClosed().subscribe(result => {
       this.CatalogueService.fetch().subscribe(response => {
@@ -72,16 +49,76 @@ export class CataloguesPageComponent implements OnInit {
   }
 }
 
+
+@Component({
+  selector: 'catalogue-new-deploy',
+  templateUrl: 'catalogue-new-deploy.component.html',
+})
+export class CatalogueNewDeploy implements OnInit  {
+
+
+  replicas: number;
+  image: string;
+  provider: string;
+  version: string;
+  name: string;
+  versionFormControl = new FormControl('', [Validators.required]);
+  replicaFormControl = new FormControl('', [Validators.required]);
+  nameFormControl = new FormControl('', [Validators.required]);
+
+
+  constructor(
+    private CatalogueService: CatalogueService,
+    public dialogRef: MatDialogRef<CatalogueNewDeploy>,
+    private applicationService: ApplicationService,
+    @Inject(MAT_DIALOG_DATA) public data: Catalogue,
+  ) {}
+
+  onClickDeploy(): void {
+    this.data.name = this.name.toLowerCase().replaceAll(' ','')
+    this.data.version = this.version.toLowerCase()
+    this.data.replicas = this.replicas
+    console.log(this.data)
+
+    const answer = this.applicationService.add(this.data).subscribe(response => {
+
+      MaterialService.toast(`Requested item has been added to the DB`)
+      this.applicationService.deploy(response).subscribe(ans => {
+
+        MaterialService.toast(`Deployment has been started`)
+        this.dialogRef.close()
+      }, err => {
+        console.log(err)
+        MaterialService.toast(`Something went wrong`)
+        this.dialogRef.close()
+      })
+    }, err => {
+      console.log(err)
+      MaterialService.toast(`Something went wrong`)    })
+      this.dialogRef.close()
+      }
+
+  onClickCancel(): void {
+    this.dialogRef.close();
+  }
+
+  ngOnInit() {
+    this.image = this.data.image
+    this.provider = this.data.provider
+}
+}
+
+
 @Component({
   selector: 'catalogue-new-page',
   templateUrl: 'catalogue-new-page.component.html',
 })
+export class CatalogueNewItem {
 
-export class DialogOverviewExampleDialog {
   provider: string[] = ['k8s','aws','gcp']
   constructor(
     private CatalogueService: CatalogueService,
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    public dialogRef: MatDialogRef<CatalogueNewItem>,
     @Inject(MAT_DIALOG_DATA) public data: Catalogue,
   ) {}
 

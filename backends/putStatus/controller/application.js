@@ -8,6 +8,13 @@ module.exports.update = async function (req, res) {
   const id = req.payload.message.body._id
   const status = req.payload.message.body.status
   const port = req.payload.artifact
+  let url
+  if (port == 'err') {
+    url = port
+  }
+  else {
+    url = nodeIp+':'+port
+  }
   console.log(id,status,port)
   try {
     const update = await Application.findOneAndUpdate(
@@ -15,12 +22,12 @@ module.exports.update = async function (req, res) {
         _id: id,
       },
       { status: status,
-        url: nodeIp+':'+port
+        url: url
       }
     );
   return 'Item has been updated'
   } catch (error) {
-    consooe.log(error)
+    console.log(error)
     throw (error)
   }
 };

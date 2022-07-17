@@ -14,8 +14,7 @@ module.exports.add = async function(req, res) {
   try{
     console.log(req.body)
     const catalogue = await new Catalogue({
-      name: req.body.name,
-      version: req.body.version,
+      image: req.body.image,
       provider: req.body.provider,
     }).save();
     res.status(200).json(catalogue);

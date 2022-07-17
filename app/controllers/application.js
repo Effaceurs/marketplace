@@ -18,10 +18,11 @@ module.exports.create = async function (req, res) {
   try {
     const order = await new Application({
       name: req.body.name,
+      image: req.body.image,
       userId: req.user.id,
       user: req.user.email,
       version: req.body.version,
-      replicas: req.body.replicas? req.body.replicas : 1,
+      replicas: req.body.replicas,
       url: 'pending',
       status: 'pending',
       provider: req.body.provider
