@@ -3,5 +3,6 @@ module "$MODULE_NAME" {
   namespace = "$NAMESPACE"
   replicas = "$REPLICAS"
   id = "$ID"
+  appVersion = "$VERSION"
 }
 

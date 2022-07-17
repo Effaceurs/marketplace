@@ -1,7 +1,22 @@
 stages:
+    - checkProviderk8s
     - preflight
     - build
     - push
+
+checkProviderk8s:
+    image: 
+        name: alpine/k8s:1.22.10
+    stage: checkProviderk8s
+    rules: 
+        - if: $PROVIDER == "k8s"
+          allow_failure: true
+    before_script:
+      - mkdir ~/.kube/
+      - echo ${KUBE_CONFIG} | base64 -d > ~/.kube/config
+    script:
+        kubectl create namespace ${NAMESPACE}
+
 preflight:
     image: 
       name: alpine:3.14
@@ -33,10 +48,6 @@ build:
 
 push:
     stage: push
-    variables:
-      MODULE_NAME: nginx
-      NAMESPACE: mysupernamespace
-      CUSTOMERNAME: customer2
     image:
       name: alpine/git:latest
       entrypoint:
@@ -45,10 +56,15 @@ push:
       - git config --global user.name "${GITLAB_USER_NAME}"
       - git config --global user.email "${GITLAB_USER_EMAIL}"
     script:
+      - ls -ltr ./
       - git remote set-url origin http://gitlab-ci-token:${ACCESS_TOKEN}@192.168.110.134/root/marketplace.git
+      - git checkout -b customer/${CUSTOMERNAME} || git checkout customer/${CUSTOMERNAME} 
+      - git pull --set-upstream origin customer/${CUSTOMERNAME} || echo 'nothing to pull'
       - git add ./terraform/customers/${CUSTOMERNAME}/${ID}/*.tf*
-      - git commit --allow-empty -m "${CUSTOMERNAME}-${NAMESPACE}-${MODULE_NAME}-${ID}-${CI_PIPELINE_ID}"
-      - git push origin HEAD:main -o ci.skip
+      - git rm ./.gitlab-ci.yml || echo 'nothing to delete'
+      - git commit --allow-empty -m "${CUSTOMERNAME}-${NAMESPACE}-${MODULE_NAME}-${NAME}-${ID}-${CI_PIPELINE_ID}"
+      - git push -f --set-upstream origin HEAD:customer/${CUSTOMERNAME} -o ci.skip
+    retry: 2
     after_script:
     - mv ./terraform/customers/${CUSTOMERNAME}/${ID}/output.txt ./output.txt 
     artifacts:
