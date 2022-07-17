@@ -20,7 +20,6 @@ module.exports.set = async function (id,status) {
   return 'Item has been updated'
   } catch (error) {
     console.log(error)
-    throw (error)
   }
 
 }

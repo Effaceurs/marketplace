@@ -26,12 +26,11 @@ module.exports.checkStatus = async function (apps) {
           );
           const id = currentApp.metadata.name.split('-')[2];
           let status = currentApp.status.conditions.find((value) => value.type === 'Available').status
-          setStatus.set(id,status);
-          //if (
-          //  status === 'True'
-          //) {
-          //  setStatus.set(id,status);
-          //}
+          if (
+            status =! 'True'
+          ) {
+            setStatus.set(id,status);
+          }
         }
       );
     }

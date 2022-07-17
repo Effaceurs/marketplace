@@ -13,15 +13,12 @@ mongoose.connect(keys.mongiURI)
 const answer = async () => {
   try {
   let status = await application.getAll()
-  console.log(1)
   await kubernetesChecker.checkStatus(status)
-  console.log(2)
   }
   catch (err) {
-    process.exit(1);
+    console.log(error)
   }
 }
 
+
 answer()
-
-
