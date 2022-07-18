@@ -27,7 +27,7 @@ async function checkStatus(message) {
       form: {
         variables: {
           NAME: message.body.name,
-          ID: 'a' + message.body.name.replace(' ','-') + '-' + message.body.image + '-' + message.body._id,
+          ID: message.body.name.replace(' ','-') + '-' + message.body.image + '-' + message.body._id,
           MODULE_NAME: message.body.image,
           REPLICAS: message.body.replicas,
           NAMESPACE: message.user,

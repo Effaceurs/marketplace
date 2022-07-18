@@ -22,13 +22,18 @@ module.exports.checkStatus = async function (apps) {
         function (error, response, body) {
           const appBody = JSON.parse(body).items;
           const currentApp = appBody.find(
-            (value) => value.metadata.name === 'a' + deploymentName
+            (value) => value.metadata.name === deploymentName
           );
           const id = currentApp.metadata.name.split('-')[2];
           let status = currentApp.status.conditions.find((value) => value.type === 'Available').status
           if (
-            status =! 'True'
+            status === 'False'
           ) {
+            console.log(`App with ${id} is unhealthy`)
+            setStatus.set(id,status);
+          }
+          else {
+            console.log(`App with ${id} is healthy`)
             setStatus.set(id,status);
           }
         }
