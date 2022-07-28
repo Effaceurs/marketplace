@@ -25,6 +25,9 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle'; 
 import {MatInputModule} from '@angular/material/input'; 
 import {MatCardModule} from '@angular/material/card'; 
+import {MatTooltipModule} from '@angular/material/tooltip'; 
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +58,9 @@ import {MatCardModule} from '@angular/material/card';
     MatIconModule,
     MatButtonToggleModule,
     MatInputModule,
-    MatCardModule
+    MatCardModule,
+    MatTooltipModule,
+    MatProgressSpinnerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

@@ -5,15 +5,15 @@ const fs = require('fs');
 const StreamZip = require('node-stream-zip');
 let nodeIp = '192.168.110.134'; // need to fix
 
-function createDir(file){
-  if (!fs.existsSync(file)){
-    fs.mkdirSync(file, {recursive: true});
+function createDir(file) {
+  if (!fs.existsSync(file)) {
+    fs.mkdirSync(file, { recursive: true });
   }
 }
 
-function cleanUp(file){
+function cleanUp(file) {
   if (fs.existsSync(file)) {
-    fs.rmdirSync('./'+file, {recursive: true});
+    fs.rmdirSync('./' + file, { recursive: true });
   }
 }
 
@@ -27,13 +27,18 @@ async function checkStatus(message) {
       form: {
         variables: {
           NAME: message.body.name,
-          ID: message.body.name.replace(' ','-') + '-' + message.body.image + '-' + message.body._id,
+          ID:
+            message.body.name.replace(' ', '-') +
+            '-' +
+            message.body.image +
+            '-' +
+            message.body._id,
           MODULE_NAME: message.body.image,
           REPLICAS: message.body.replicas,
           NAMESPACE: message.user,
           CUSTOMERNAME: message.user,
           VERSION: message.body.version,
-          PROVIDER: message.body.provider
+          PROVIDER: message.body.provider,
         },
       },
     },
@@ -42,8 +47,8 @@ async function checkStatus(message) {
       console.log('id - ', id);
     }
   );
-  cleanUp(message.body._id)
-  createDir(message.body._id)  
+  cleanUp(message.body._id);
+  createDir(message.body._id);
   await new Promise((resolve) => setTimeout(resolve, 1000));
   let success;
   let artifactValue;
@@ -72,8 +77,11 @@ async function checkStatus(message) {
       function (error, response, body) {
         let jobStatusAnswer = JSON.parse(response.body);
         console.log(jobStatusAnswer.status);
-        if (jobStatusAnswer.status === 'skipped' || jobStatusAnswer.status === 'failed' ) {
-          i == 15   
+        if (
+          jobStatusAnswer.status === 'skipped' ||
+          jobStatusAnswer.status === 'failed'
+        ) {
+          i == 15;
         }
         if (jobStatusAnswer.status === 'success') {
           success = true;
@@ -100,9 +108,9 @@ async function checkStatus(message) {
     payload.message.body.status = 'failed';
     payload.artifact = artifactValue;
     console.log(payload);
-    console.log('sending a message')
+    console.log('sending a message');
     sendMessage(payload);
-    return
+    return;
   } else {
     payload.message.body.status = 'running';
   }
@@ -117,14 +125,14 @@ async function checkStatus(message) {
       artifactValue = zipDotTxtContents;
       payload.artifact = artifactValue;
       console.log(payload);
-      console.log('sending a message')
+      console.log('sending a message');
       sendMessage(payload);
       zip.close();
-      cleanUp(message.body._id)
+      cleanUp(message.body._id);
     });
   } catch {
     payload.artifact = 'err';
-    console.log('sending a message')
+    console.log('sending a message');
     sendMessage(payload);
   }
 }

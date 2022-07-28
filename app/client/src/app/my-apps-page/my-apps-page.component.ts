@@ -8,6 +8,7 @@ import { ApplicationService } from "../shared/services/application.service";
 })
 export class MyAppsComponent implements OnInit {
   applications = [];
+  loading = false;
 
   constructor(private applicationService: ApplicationService) {
   }
