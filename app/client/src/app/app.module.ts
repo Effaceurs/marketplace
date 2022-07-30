@@ -10,9 +10,11 @@ import {SiteLayoutComponent} from './shared/layouts/site-layout/site-layout.comp
 import {RegisterPageComponent} from './register-page/register-page.component'
 import { TokenInterceptor } from "./shared/classes/token.interceptor";
 import { MyAppsComponent } from "./my-apps-page/my-apps-page.component";
+import { MyAppsDelete } from  "./my-apps-page/my-apps-page.component";
 import { CataloguesPageComponent } from "./catalogue-page/catalogue-page.component";
 import {CatalogueNewItem} from "./catalogue-page/catalogue-page.component";
 import {CatalogueNewDeploy} from "./catalogue-page/catalogue-page.component";
+import {MatListModule} from '@angular/material/list'; 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {MatGridListModule} from '@angular/material/grid-list'; 
 import {MatButtonModule} from '@angular/material/button'; 
@@ -39,6 +41,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     CataloguesPageComponent,
     CatalogueNewItem,
     CatalogueNewDeploy,
+    MyAppsDelete
 
   ],
   imports: [
@@ -60,7 +63,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatInputModule,
     MatCardModule,
     MatTooltipModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatListModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

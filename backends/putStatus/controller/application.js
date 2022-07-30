@@ -9,7 +9,7 @@ module.exports.update = async function (req, res) {
   const status = req.payload.message.body.status
   const port = req.payload.artifact
   let url
-  if (port == 'err') {
+  if (port == '') {
     url = port
   }
   else {

@@ -1,10 +1,9 @@
-import { Component, OnInit, Input , Inject} from '@angular/core';
+import { Component, OnInit, Inject} from '@angular/core';
 import { ApplicationService } from "../shared/services/application.service";
 import { CatalogueService } from "../shared/services/catalogue.service";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Application, Catalogue} from '../shared/interfaces'
+import {Catalogue} from '../shared/interfaces'
 import { MaterialService } from "../shared/classes/material.service"
-import { TouchSequence } from "selenium-webdriver";
 import {FormControl, Validators} from '@angular/forms';
 
 @Component({

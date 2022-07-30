@@ -12,7 +12,7 @@ module.exports.deploy = async function (req, res) {
   amqp.connect(keys.amq, function (error, connection) {
     if (error) {
       errorHandler(res, error);
-      res.status(500).json('the message has not been sended');
+      res.status(500).json('the message has not been sent');
     }
     connection.createChannel((error, channel) => {
       if (error) {
@@ -29,5 +29,5 @@ module.exports.deploy = async function (req, res) {
       }, 1000);
     });
   });
-  res.status(200).json('the message has been sended');
+  res.status(200).json('the message has been sent');
 };

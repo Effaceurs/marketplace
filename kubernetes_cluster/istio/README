@@ -1,0 +1,5 @@
+1. Download and install istioclt
+2. run istioctl install 
+3. run kubectl apply -f ${ISTIO_HOME}/samples/addons
+4. change service for kiali to nodeport
+5. 

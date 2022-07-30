@@ -6,7 +6,8 @@ const fs = require('fs');
 module.exports.checkStatus = async function (item) {
   try {
       let namespace = item.namespace;
-      let deploymentName = item.name + '-' + item.image + '-' + item.id;
+      //let deploymentName = item.name + '-' + item.image + '-' + item.id;
+      let deploymentName = item.id;
       const promisifiedRequest = function(options) {
         return new Promise((resolve,reject) => {
           request(options, (error, response, body) => {
@@ -31,15 +32,25 @@ module.exports.checkStatus = async function (item) {
             ca: fs.readFileSync('config/ca.crt'),
           },
         }
-      
+        
+        let status
+        let id
         let response = await promisifiedRequest(options);
       
         const appBody = JSON.parse(response.body).items;
-        const currentApp = appBody.find(
-          (value) => value.metadata.name === deploymentName
-        );
-        const id = currentApp.metadata.name.split('-')[2];
-        let status = currentApp.status.conditions.find((value) => value.type === 'Available').status
+        const currentApp = appBody.filter(
+          (value) => value.metadata.name.includes(deploymentName)
+        )
+        if (currentApp.length === 0) {
+          id = item.id
+          status = 'False'
+        }
+        else {
+        for (const each of currentApp){
+        id = item.id
+        status = each.status.conditions.find((value) => value.type === 'Available').status
+        }
+      }
         return [id,status]
 
       })();

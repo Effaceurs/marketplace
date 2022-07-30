@@ -12,7 +12,7 @@ module.exports.getAll = async function (req, res) {
 
   try {
     const applications = await Application.find();
-    const filtered = applications.filter(value => ((timestamp - epoch(value.date)) > 600000) )
+    const filtered = applications.filter(value => ((timestamp - epoch(value.date)) > 150000) )
     return filtered.map((value) => ({
       image: value.image,
       name: value.name,

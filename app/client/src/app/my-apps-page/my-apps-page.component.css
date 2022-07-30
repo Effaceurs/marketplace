@@ -1,6 +1,20 @@
 .mat-column {
-  width: auto;
+  width: 100%;
   text-align: center;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.row-is-clicked {
+  font-weight: bold;
 }
 
 .mat-table {
@@ -20,6 +34,22 @@
   color:red;
 }
 
+.purple-color {
+  color:purple;
+}
+
 .yellow-color {
   color:yellow;
+}
+
+.button button,
+.button a {
+  width: 500px;
+  height: 500px;
+  background: lightblue;
+  font-size: 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
 }

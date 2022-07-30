@@ -21,4 +21,9 @@ export class ApplicationService {
   deploy(application: Application): Observable<any>  {
     return this.http.post<Application>('/api/deploy/', application)
   }
+
+  delete(id: string, application: Application): Observable<any>  {
+    console.log('deleting')
+    return this.http.patch<Application>(`/api/application/${id}`, application)
+  }
 }
