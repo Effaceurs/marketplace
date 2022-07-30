@@ -3,7 +3,8 @@ resource "kubernetes_deployment" "httpd" {
     name = var.id
     namespace = var.namespace
     labels = {
-      App = var.id
+      app = var.id
+      version = var.appVersion
     }
   }
 
@@ -11,13 +12,14 @@ resource "kubernetes_deployment" "httpd" {
     replicas = var.replicas
     selector {
       match_labels = {
-        App = var.id
+        app = var.id
       }
     }
     template {
       metadata {
         labels = {
-          App = var.id
+          app = var.id
+          version = var.appVersion        
         }
       }
       spec {
@@ -51,7 +53,7 @@ resource "kubernetes_service" "httpd" {
   }
   spec {
     selector = {
-      App = kubernetes_deployment.httpd.spec.0.template.0.metadata[0].labels.App
+      app = kubernetes_deployment.httpd.spec.0.template.0.metadata[0].labels.app
     }
     port {
       port        = 80
