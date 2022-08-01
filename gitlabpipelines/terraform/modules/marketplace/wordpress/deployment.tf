@@ -68,7 +68,7 @@ resource "kubernetes_deployment" "wordpress" {
       }
       spec {
         container {
-          image = "wordpress:4.8-apache"
+          image = "wordpress:${var.appVersion}"
           name = "wp${var.id}"
           port {
             container_port = 80

@@ -21,7 +21,7 @@ export class MyAppsComponent implements OnInit {
 
   addRow(row){
     if (!this.clickedRows.has(row)){
-      if(row.status === 'deleted' || row.status === 'deleting' || row.status === 'pending'){}
+      if(row.status === 'deleted' || row.status === 'deleting' || row.status === 'pending' || row.status === 'failed'){}
       else {
       this.clickedRows.add(row)
       }

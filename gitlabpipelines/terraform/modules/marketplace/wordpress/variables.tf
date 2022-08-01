@@ -14,3 +14,4 @@ variable "id" {
 variable "appVersion" {
   type = string
 }
+

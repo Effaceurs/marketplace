@@ -80,12 +80,18 @@
           >fiber_manual_record</mat-icon
         >
       </div>
+      <div *ngIf="element.status === 'failed'">
+        <mat-icon matTooltip="failed" class="red-color"
+          >fiber_manual_record</mat-icon
+        >
+      </div>
       <div
         *ngIf="
           element.status != 'running' &&
           element.status != 'deleted' &&
           element.status != 'deleting' &&
-          element.status != 'pending'
+          element.status != 'pending' &&
+          element.status != 'failed'
         "
       >
         <mat-icon matTooltip="down" class="red-color"

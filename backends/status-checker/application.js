@@ -38,8 +38,6 @@ const answer = async () => {
       setStatus.set(id,stat);
     }
   }
-
-  console.log('sleeping')
   await init() 
   answer()
   }

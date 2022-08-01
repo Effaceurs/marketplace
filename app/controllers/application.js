@@ -6,7 +6,6 @@ const keys = require('../config/keys');
 module.exports.getAll = async function (req, res) {
   try {
     const apps = await Application.find({user : req.user.email});
-
     return res.status(200).json(apps);
   } catch (error) {
     errorHandler(res, error);

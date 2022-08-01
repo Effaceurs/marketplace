@@ -21,9 +21,7 @@
     [(ngModel)]="version"
     aria-label="Font Style"
   >
-    <mat-button-toggle value="latest">latest</mat-button-toggle>
-    <mat-button-toggle value="1.23.0">1.23.0</mat-button-toggle>
-    <mat-button-toggle value="1.7.8">1.7.8</mat-button-toggle>
+    <mat-button-toggle *ngFor="let item of appVersion" value={{item.version}}>{{item.version}}</mat-button-toggle>
   </mat-button-toggle-group>
   <br />
   <br />

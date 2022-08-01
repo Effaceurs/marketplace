@@ -3,6 +3,16 @@ export interface User {
   password: string
 }
 
+export interface Provider {
+  name: string
+}
+
+export interface AppVersion {
+  name: string,
+  image: string,
+  provider: Provider
+}
+
 
 export interface Catalogue {
   name: string,

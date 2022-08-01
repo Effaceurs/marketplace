@@ -48,20 +48,31 @@ async function checkStatus(message) {
   );
   cleanUp(message.body._id);
   createDir(message.body._id);
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 5000));
   let success;
   let artifactValue;
   let jobId;
-  request.get(
-    {
-      url: keys.gitlaburl + '/pipelines/' + id + '/jobs',
-    },
-    function (error, response, body) {
-      const answer = JSON.parse(response.body);
-      const pushStage = answer.filter((stages) => stages.name === 'push');
-      jobId = pushStage[0].id;
-    }
-  );
+  try {
+    request.get(
+      {
+        url: keys.gitlaburl + '/pipelines/' + id + '/jobs',
+      },
+      function (error, response, body) {
+        const answer = JSON.parse(response.body);
+        const pushStage = answer.filter((stages) => stages.name === 'push');
+        jobId = pushStage[0].id;
+      }
+    );  
+  } catch (error) {
+    console.log('Cannot get job status')
+    payload.message.body.status = 'failed';
+    payload.artifact = '';
+    console.log(payload);
+    console.log('sending a message');
+    sendMessage(payload);
+    return;
+  }
+
   await new Promise((resolve) => setTimeout(resolve, 2000));
   for (let i = 0; i <= 15; i++) {
     if (success === true) {

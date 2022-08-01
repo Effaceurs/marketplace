@@ -29,17 +29,6 @@ resource "kubernetes_deployment" "httpd" {
           port {
             container_port = 80
           }
-
-          resources {
-            limits = {
-              cpu    = "125m"
-              memory = "50Mi"
-            }
-            requests = {
-              cpu    = "125m"
-              memory = "50Mi"
-            }
-          }
         }
       }
     }

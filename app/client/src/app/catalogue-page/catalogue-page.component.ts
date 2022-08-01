@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject} from '@angular/core';
+import { ProviderService } from "../shared/services/provider.service";
 import { ApplicationService } from "../shared/services/application.service";
 import { CatalogueService } from "../shared/services/catalogue.service";
+import { AppVersionService } from "../shared/services/appVersion.service";
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {Catalogue} from '../shared/interfaces'
+import {AppVersion, Catalogue, Provider} from '../shared/interfaces'
 import { MaterialService } from "../shared/classes/material.service"
 import {FormControl, Validators} from '@angular/forms';
 
@@ -49,6 +51,8 @@ export class CataloguesPageComponent implements OnInit {
 }
 
 
+
+
 @Component({
   selector: 'catalogue-new-deploy',
   templateUrl: 'catalogue-new-deploy.component.html',
@@ -56,6 +60,7 @@ export class CataloguesPageComponent implements OnInit {
 export class CatalogueNewDeploy implements OnInit  {
 
 
+  appVersion: AppVersion[] =[]
   replicas: number;
   image: string;
   provider: string;
@@ -67,7 +72,7 @@ export class CatalogueNewDeploy implements OnInit  {
 
 
   constructor(
-    private CatalogueService: CatalogueService,
+    private AppVersionService: AppVersionService,
     public dialogRef: MatDialogRef<CatalogueNewDeploy>,
     private applicationService: ApplicationService,
     @Inject(MAT_DIALOG_DATA) public data: Catalogue,
@@ -104,6 +109,9 @@ export class CatalogueNewDeploy implements OnInit  {
   ngOnInit() {
     this.image = this.data.image
     this.provider = this.data.provider
+    this.AppVersionService.get(this.image, this.provider).subscribe(result => {
+      this.appVersion = result
+    })
 }
 }
 
@@ -114,12 +122,23 @@ export class CatalogueNewDeploy implements OnInit  {
 })
 export class CatalogueNewItem {
 
-  provider: string[] = ['k8s','aws','gcp']
+  provider: Provider[] = []
+
+
   constructor(
+    private ProviderService: ProviderService,
     private CatalogueService: CatalogueService,
     public dialogRef: MatDialogRef<CatalogueNewItem>,
     @Inject(MAT_DIALOG_DATA) public data: Catalogue,
   ) {}
+
+  ngOnInit() {
+    this.ProviderService.get().subscribe(result => {
+      this.provider = result
+    })
+}
+
+
 
   onNoClick(): void {
     this.dialogRef.close();

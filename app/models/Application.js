@@ -31,4 +31,4 @@ const applicationSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('application', applicationSchema);
+module.exports = mongoose.model('applications', applicationSchema);

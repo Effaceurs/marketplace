@@ -14,7 +14,8 @@ const authRoutes = require('./routes/auth');
 const catalogueRoutes = require('./routes/catalogue');
 const applicationRoutes = require('./routes/application');
 const deployRoutes = require('./routes/deploy');
-
+const providerRoutes = require('./routes/provider')
+const appVersionRoutes = require('./routes/appVersion')
 
 
 mongoose.connect(keys.mongiURI)
@@ -33,6 +34,8 @@ app.use('/api/auth', authRoutes);
 app.use('/api/catalogue', catalogueRoutes);
 app.use('/api/application', applicationRoutes);
 app.use('/api/deploy', deployRoutes);
+app.use('/api/provider', providerRoutes);
+app.use('/api/appversion', appVersionRoutes);
 
 
 module.exports = app;
