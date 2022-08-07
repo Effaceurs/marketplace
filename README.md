@@ -13,7 +13,7 @@ https://trello.com/b/FsUKff8K/marketplace
 
 
 ## 1. Description
-Marketplace is a web-based application that levarege IAC apporoach to provision resources on different platforms by a simple click. 
+Marketplace is a web-based application that leverage IAC approach  to provision resources on different platforms by a simple click. 
 
 ## 2. Platforms:
 * Kubernetes
@@ -84,6 +84,57 @@ Marketplace is a web-based application that levarege IAC apporoach to provision 
 
 ## 5. Walkthrough. 
 <img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/work.gif"/>
+
+### 1. Login Page
+Page to log in into your account
+
+### 2. Registration
+Click on registration button and provide a valid email + password. 
+No email confirmation yet implemented
+
+### 3. Log in into your account
+Fill in the gaps with your email and password. Passwords are stored in the DB in encrypted format.
+
+### 4. My applications page
+There are no yet any applications running in your account.
+
+### 5. Catalogue page
+The list of application that you can provision for your need.
+
+### 6. Add a new application to a catalogue (in development)
+The page where you can add a new application into your catalogue list. Make sure that the backed is ready for it. The name of the app/platform should correspond to the backend implementation.
+
+### 7-8. Deploy an app
+Click on button and select options for your app. App versions are fetched from the DB, there are only tested versions of apps. 
+Click on deploy and check pop up messages about your deployment.
+
+### 9. My applications page
+See that the item has been added and having status pending (in yellow). Connection string is not yet identified. 
+
+### 10. Pipeline page (only for admins)
+See the stages that the request should go through before deploying and being available for use.
+
+### 11. My applications page
+See that the item has green status running and have a link to connect to it. 
+
+### 12. Application
+The requested nginx server has been deployed. 
+
+### 13. Check what resources have been created (only for admins)
+For each registered users with at least 1 app ever requested there is a namespace. 
+tfstate for each requested app is stored in a detached k8s secret.
+
+### 14. Delete an app
+Select apps that you want to delete and click on bucket button. Then confirm the operation by typing 'delete' and click delete.
+
+### 15. My applications page
+The deletion has been started
+
+### 16. Pipeline page (only for admins)
+The pipeline for deletion operation.
+
+### 17. Check what resources have been deleted (only for admins)
+See that there are no more resources in users's namespace.
 
 ## 6. Microservices Description
 
