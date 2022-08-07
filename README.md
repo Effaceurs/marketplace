@@ -20,7 +20,7 @@ Marketplace is a web-based application that levarege IAC apporoach to provision 
 * Yandex Cloud - not implemented yet
 
 ## 3. Schema
-<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/Diagram.jpg"/>
+<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/Untitled Diagram.jpg"/>
 
 ## 4. Deploy marketplace in your env. 
 
@@ -83,6 +83,7 @@ Marketplace is a web-based application that levarege IAC apporoach to provision 
     - mongiURI: replace connection string 
 
 ## 5. Walkthrough. 
+<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/work.gif"/>
 
 ## 6. Microservices Description
 
