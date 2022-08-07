@@ -3,6 +3,16 @@
 ## Trello:
 https://trello.com/b/FsUKff8K/marketplace
 
+## Services:
+Ensure you patched deployed services in order to change the service type to NodePort.
+> kubectl patch service ${servicename} -n ${service_namespace} -p '{"spec": {"type": "NodePort"}}'
+* MongoDB - PORT:32000
+* ArgoCD  - PORT: HTTP-32723;HTTPS-32733
+* Grafana - PORT:30714
+* Prometheus - PORT:30714
+* RabbitMQ - PORT:32222
+
+
 ## Table of contents: 
 1. Description
 2. Platforms
