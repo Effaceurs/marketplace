@@ -18,8 +18,9 @@ Ensure you patched deployed services in order to change the service type to Node
 2. Platforms
 3. Schema
 4. Deploy marketplace in your env
-5. Walkthrough
-6. Microservices Description
+5. CICD
+6. Walkthrough
+7. Microservices Description
 
 
 ## 1. Description
@@ -92,7 +93,22 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
     - kubernetesAPI: replace to your k8s api endpoint   
     - mongiURI: replace connection string 
 
-## 5. Walkthrough. 
+## 5. Deploy marketplace in your env. 
+CI/CD is managed by Gitlab. Deploy your local instance of gitlab.
+There are 5 repositories with monobranch - main
+
+marketplace
+see dir local_gitlab\repo with repo contents
+marketplace-be-deletion
+marketplace-be-deployment
+marketplace-be-putstatus
+marketplace-be-statuschecker
+
+env variables:
+KUBE_CONFIG - base64 kube config file with rights to deploy to the k8s cluster.
+
+
+## 6. Walkthrough. 
 <img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/work.gif"/>
 
 ### 1. Login Page
@@ -146,7 +162,7 @@ The pipeline for deletion operation.
 ### 17. Check what resources have been deleted (only for admins)
 See that there are no more resources in users's namespace.
 
-## 6. Microservices Description
+## 7. Microservices Description
 
 ### Put status
 - Input: 
