@@ -48,6 +48,7 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
 * 5. Using kustomize update manifest to match a new version of a release
 * 6. Push a new release manifest to the repo
 * 7. ArgoCD watches 'marketplace-be-deployment\manifests\release' dir and sync application to match a new version
+* 8. Argo deploys the app to k8s cluster
 
 ## 7. Deploy marketplace in your env.
 <a name="Deploy_marketplace_in_your_env"></a>
