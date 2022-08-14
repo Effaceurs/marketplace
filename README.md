@@ -1,39 +1,56 @@
 # Marketplace 
 
-## Trello:
-https://trello.com/b/FsUKff8K/marketplace
-
-## Services:
-Ensure you patched deployed services in order to change the service type to NodePort.
-> kubectl patch service ${servicename} -n ${service_namespace} -p '{"spec": {"type": "NodePort"}}'
-* MongoDB - PORT:32000
-* ArgoCD  - PORT: HTTP-32723;HTTPS-32733
-* Grafana - PORT:30714
-* Prometheus - PORT:30714
-* RabbitMQ - PORT:32222
-
-
-## Table of contents: 
-1. Description
-2. Platforms
-3. Schema
-4. Deploy marketplace in your env
-5. CICD
-6. Walkthrough
-7. Microservices Description
-
+## Table of contents:  
+1. [Description](#Description)
+2. [Backlog](#Backlog)
+3. [Repositories](#Repositories)
+4. [Platforms](#Platforms)
+5. [Overview schema](#Overview_schema)
+6. [Marketplace components CI/CD](#Marketplace_components_CI/CD)
+7. [Deploy marketplace in your env](#Deploy_marketplace_in_your_env)
+8. [Walkthrough](#Walkthrough)
 
 ## 1. Description
+<a name="Description"></a>
 Marketplace is a web-based application that leverage IAC approach  to provision resources on different platforms by a simple click. 
 
-## 2. Platforms:
+## 2. Backlog:
+<a name="Backlog"></a>
+* [backlog](https://gitlab.com/effaceurs90/marketplace/-/issues)
+
+## 3. Repositories:
+<a name="Repositories"></a>
+* [marketplace-be-api](https://gitlab.com/effaceurs90/marketplace-be-api)
+* [marketplace-be-deletion](https://gitlab.com/effaceurs90/marketplace-be-deletion)
+* [marketplace-be-deployment](https://gitlab.com/effaceurs90/marketplace-be-deployment)
+* [marketplace-be-pipelines](https://gitlab.com/effaceurs90/marketplace-be-pipelines)
+* [marketplace-be-putstatus](https://gitlab.com/effaceurs90/marketplace-be-putstatus)
+* [marketplace-be-statuschecker](https://gitlab.com/effaceurs90/marketplace-be-statuschecker)
+* [marketplace-fe-portal](https://gitlab.com/effaceurs90/marketplace-fe-portal)
+
+
+## 4. Platforms:
+<a name="Platforms"></a>
 * Kubernetes
 * Yandex Cloud - not implemented yet
 
-## 3. Schema
+## 5. Overview schema
+<a name="Overview_schema"></a>
 <img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/Untitled Diagram.jpg"/>
 
-## 4. Deploy marketplace in your env. 
+## 6. Marketplace components CI/CD
+<a name="Marketplace_components_CI/CD"></a>
+<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/deployment.jpg"/>
+* 1. Dev pushes a new version of marketplace component to repo
+* 2. This triggers gitlab pipeline
+* 3. Build docker image with a release
+* 4. Push release to a container registry
+* 5. Using kustomize update manifest to match a new version of a release
+* 6. Push a new release manifest to the repo
+* 7. ArgoCD watches 'marketplace-be-deployment\manifests\release' dir and sync application to match a new version
+
+## 7. Deploy marketplace in your env.
+<a name="Deploy_marketplace_in_your_env"></a>
 
 ### Kubernetes:
 - Deploy a k8s cluster using any tool you want: RKE, kind, kubeadm
@@ -93,22 +110,8 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
     - kubernetesAPI: replace to your k8s api endpoint   
     - mongiURI: replace connection string 
 
-## 5. Deploy marketplace in your env. 
-CI/CD is managed by Gitlab. Deploy your local instance of gitlab.
-There are 5 repositories with monobranch - main
-
-marketplace
-see dir local_gitlab\repo with repo contents
-marketplace-be-deletion
-marketplace-be-deployment
-marketplace-be-putstatus
-marketplace-be-statuschecker
-
-env variables:
-KUBE_CONFIG - base64 kube config file with rights to deploy to the k8s cluster.
-
-
-## 6. Walkthrough. 
+## 8. Walkthrough. 
+<a name="Walkthrough"></a>
 <img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/work.gif"/>
 
 ### 1. Login Page
@@ -162,61 +165,3 @@ The pipeline for deletion operation.
 ### 17. Check what resources have been deleted (only for admins)
 See that there are no more resources in users's namespace.
 
-## 7. Microservices Description
-
-### Put status
-- Input: 
-- Output
-- Goal: to update of a status of a resource in the DB (running,down,deleted,deleting,pending)
-
-### Workload monitoring
-- Input: 
-- Output
-- Goal: each 10 seconds does healthchecks against all values in collection `applications` 
-
-### Delete app
-- Input: 
-- Output
-- Goal: delete application by running a gitlab pipeline with specific variables. 
-
-### Deploy app
-- Input: 
-- Output
-- Goal: deploy application by running a gitlab pipeline with specific variables. 
-
-### GitLab CI/CD
-- Input: 
-- Output
-- Goal: includes several stages 
-  - checkProviderKubernetes: checks whether namespaces created or not
-  - preflight: check if requested module exists and substitute values according to a request.
-  - delete: perform terraform destroy command
-  - build: perform terraform apply command
-  - push: save artifact file with port that app is running
-- Runner: 1 as docker container
-
-### Terraform
-- Input: 
-- Output
-- Goal: provision or delete a resource
-- Providers:
-   - k8s
-   - Yandex cloud (in development)
-- Backend:
-   - as k8s secret
-- Namespaces: each user has its own namespace for resources
-
-### k8s
-- Input: 
-- Output
-- Goal: run customer and platform related resources
-- Platform resources: MongoDB
-
-### RabbitMQ
-- Input: 
-- Output
-- Goal: message broker
-- Queues:
-  - applicationDeletionRequest
-  - applicationDeploymentRequest
-  - applicationPutStatus
