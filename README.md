@@ -3,6 +3,15 @@
 ## Trello:
 https://trello.com/b/FsUKff8K/marketplace
 
+## Repositories:
+* [marketplace-be-api](https://gitlab.com/effaceurs90/marketplace-be-api)
+* [marketplace-be-deletion](https://gitlab.com/effaceurs90/marketplace-be-deletion)
+* [marketplace-be-deployment](https://gitlab.com/effaceurs90/marketplace-be-deployment)
+* [marketplace-be-pipelines](https://gitlab.com/effaceurs90/marketplace-be-pipelines)
+* [marketplace-be-putstatus](https://gitlab.com/effaceurs90/marketplace-be-putstatus)
+* [marketplace-be-statuschecker](https://gitlab.com/effaceurs90/marketplace-be-statuschecker)
+* [marketplace-fe-portal](https://gitlab.com/effaceurs90/marketplace-fe-portal)
+
 ## Services:
 Ensure you patched deployed services in order to change the service type to NodePort.
 > kubectl patch service ${servicename} -n ${service_namespace} -p '{"spec": {"type": "NodePort"}}'
