@@ -1,9 +1,25 @@
 # Marketplace 
 
-## backlog:
+## Table of contents:  
+1. [Description](#Description)
+2. [Backlog](#Backlog)
+3. [Repositories](#Repositories)
+4. [Platforms](#Platforms)
+5. [Overview schema](#Overview_schema)
+6. [Marketplace components CI/CD](#Marketplace_components_CI/CD)
+7. [Deploy marketplace in your env](#Deploy_marketplace_in_your_env)
+8. [Walkthrough](#Walkthrough)
+
+## 1. Description
+<a name="Description"></a>
+Marketplace is a web-based application that leverage IAC approach  to provision resources on different platforms by a simple click. 
+
+## 2. Backlog:
+<a name="Backlog"></a>
 * [backlog](https://gitlab.com/effaceurs90/marketplace/-/issues)
 
-## Repositories:
+## 3. Repositories:
+<a name="Repositories"></a>
 * [marketplace-be-api](https://gitlab.com/effaceurs90/marketplace-be-api)
 * [marketplace-be-deletion](https://gitlab.com/effaceurs90/marketplace-be-deletion)
 * [marketplace-be-deployment](https://gitlab.com/effaceurs90/marketplace-be-deployment)
@@ -12,33 +28,29 @@
 * [marketplace-be-statuschecker](https://gitlab.com/effaceurs90/marketplace-be-statuschecker)
 * [marketplace-fe-portal](https://gitlab.com/effaceurs90/marketplace-fe-portal)
 
-## Services:
-Ensure you patched deployed services in order to change the service type to NodePort.
-> kubectl patch service ${servicename} -n ${service_namespace} -p '{"spec": {"type": "NodePort"}}'
-* MongoDB - PORT:32000
-* ArgoCD  - PORT: HTTP-32723;HTTPS-32733
-* Grafana - PORT:30714
-* Prometheus - PORT:30714
-* RabbitMQ - PORT:32222
 
-## Table of contents: 
-1. Description
-2. Platforms
-3. Schema
-4. Deploy marketplace in your env
-5. Walkthrough
-
-## 1. Description
-Marketplace is a web-based application that leverage IAC approach  to provision resources on different platforms by a simple click. 
-
-## 2. Platforms:
+## 4. Platforms:
+<a name="Platforms"></a>
 * Kubernetes
 * Yandex Cloud - not implemented yet
 
-## 3. Schema
+## 5. Overview schema
+<a name="Overview_schema"></a>
 <img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/Untitled Diagram.jpg"/>
 
-## 4. Deploy marketplace in your env. 
+## 6. Marketplace components CI/CD
+<a name="Marketplace_components_CI/CD"></a>
+<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/deployment.jpg"/>
+* 1. Dev pushes a new version of marketplace component to repo
+* 2. This triggers gitlab pipeline
+* 3. Build docker image with a release
+* 4. Push release to a container registry
+* 5. Using kustomize update manifest to match a new version of a release
+* 6. Push a new release manifest to the repo
+* 7. ArgoCD watches 'marketplace-be-deployment\manifests\release' dir and sync application to match a new version
+
+## 7. Deploy marketplace in your env.
+<a name="Deploy_marketplace_in_your_env"></a>
 
 ### Kubernetes:
 - Deploy a k8s cluster using any tool you want: RKE, kind, kubeadm
@@ -98,7 +110,8 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
     - kubernetesAPI: replace to your k8s api endpoint   
     - mongiURI: replace connection string 
 
-## 5. Walkthrough. 
+## 8. Walkthrough. 
+<a name="Walkthrough"></a>
 <img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/work.gif"/>
 
 ### 1. Login Page
