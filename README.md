@@ -1,7 +1,7 @@
 # Marketplace 
 
-## Trello:
-https://trello.com/b/FsUKff8K/marketplace
+## backlog:
+* [backlog](https://gitlab.com/effaceurs90/marketplace/-/issues)
 
 ## Repositories:
 * [marketplace-be-api](https://gitlab.com/effaceurs90/marketplace-be-api)
@@ -21,16 +21,12 @@ Ensure you patched deployed services in order to change the service type to Node
 * Prometheus - PORT:30714
 * RabbitMQ - PORT:32222
 
-
 ## Table of contents: 
 1. Description
 2. Platforms
 3. Schema
 4. Deploy marketplace in your env
-5. CICD
-6. Walkthrough
-7. Microservices Description
-
+5. Walkthrough
 
 ## 1. Description
 Marketplace is a web-based application that leverage IAC approach  to provision resources on different platforms by a simple click. 
@@ -102,22 +98,7 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
     - kubernetesAPI: replace to your k8s api endpoint   
     - mongiURI: replace connection string 
 
-## 5. Deploy marketplace in your env. 
-CI/CD is managed by Gitlab. Deploy your local instance of gitlab.
-There are 5 repositories with monobranch - main
-
-marketplace
-see dir local_gitlab\repo with repo contents
-marketplace-be-deletion
-marketplace-be-deployment
-marketplace-be-putstatus
-marketplace-be-statuschecker
-
-env variables:
-KUBE_CONFIG - base64 kube config file with rights to deploy to the k8s cluster.
-
-
-## 6. Walkthrough. 
+## 5. Walkthrough. 
 <img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/work.gif"/>
 
 ### 1. Login Page
@@ -171,61 +152,3 @@ The pipeline for deletion operation.
 ### 17. Check what resources have been deleted (only for admins)
 See that there are no more resources in users's namespace.
 
-## 7. Microservices Description
-
-### Put status
-- Input: 
-- Output
-- Goal: to update of a status of a resource in the DB (running,down,deleted,deleting,pending)
-
-### Workload monitoring
-- Input: 
-- Output
-- Goal: each 10 seconds does healthchecks against all values in collection `applications` 
-
-### Delete app
-- Input: 
-- Output
-- Goal: delete application by running a gitlab pipeline with specific variables. 
-
-### Deploy app
-- Input: 
-- Output
-- Goal: deploy application by running a gitlab pipeline with specific variables. 
-
-### GitLab CI/CD
-- Input: 
-- Output
-- Goal: includes several stages 
-  - checkProviderKubernetes: checks whether namespaces created or not
-  - preflight: check if requested module exists and substitute values according to a request.
-  - delete: perform terraform destroy command
-  - build: perform terraform apply command
-  - push: save artifact file with port that app is running
-- Runner: 1 as docker container
-
-### Terraform
-- Input: 
-- Output
-- Goal: provision or delete a resource
-- Providers:
-   - k8s
-   - Yandex cloud (in development)
-- Backend:
-   - as k8s secret
-- Namespaces: each user has its own namespace for resources
-
-### k8s
-- Input: 
-- Output
-- Goal: run customer and platform related resources
-- Platform resources: MongoDB
-
-### RabbitMQ
-- Input: 
-- Output
-- Goal: message broker
-- Queues:
-  - applicationDeletionRequest
-  - applicationDeploymentRequest
-  - applicationPutStatus
