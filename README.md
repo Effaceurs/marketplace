@@ -42,13 +42,15 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
 <a name="Marketplace_components_CI/CD"></a>
 <img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/deployment.jpg"/>
 * 1. Dev pushes a new version of marketplace component to repo
-* 2. This triggers gitlab pipeline
-* 3. Build docker image with a release
-* 4. Push release to a container registry
-* 5. Using kustomize update manifest to match a new version of a release
-* 6. Push a new release manifest to the repo
-* 7. ArgoCD watches '${repo}\manifests\release' dir and sync application to match a new version
-* 8. Argo deploys the app to k8s cluster
+* 2. Trigger gitlab pipeline
+* 3. Unit test
+* 4. Build docker image with a release
+* 5. Push release to a container registry
+* 6. Using kustomize update manifest to match a new version of a release
+* 7. k8s manifest tests
+* 8. Push a new release manifest to the repo
+* 9. ArgoCD watches '${repo}\manifests\release' dir and sync application to match a new version
+* 10. Argo deploys the app to k8s cluster
 
 ## 7. Deploy marketplace in your env.
 <a name="Deploy_marketplace_in_your_env"></a>
