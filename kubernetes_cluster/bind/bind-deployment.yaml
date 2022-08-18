@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: bind
+  name: bind
+  namespace: bind
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bind
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: bind
+    spec:
+      containers:
+      - image: sameersbn/bind:9.16.1-20200524
+        name: bind
+        resources:
+          requests:
+            memory: "32Mi"
+            cpu: "10m"
+          limits:
+            memory: "256Mi"
+            cpu: "256m"    
+        ports:
+        - containerPort: 53  

@@ -36,7 +36,7 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
 
 ## 5. Overview schema
 <a name="Overview_schema"></a>
-<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/Untitled Diagram.jpg"/>
+<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/app.jpg"/>
 
 ## 6. Marketplace components CI/CD
 <a name="Marketplace_components_CI/CD"></a>
