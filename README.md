@@ -63,52 +63,68 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
 - on each k8s nodes create dirs: ['/data/mongo','/data/rabbit']
 
 ### CNI:
-- kubectl apply -f ./flannel
+- kubectl apply -f kubernetes_cluster/flannel/
+
 ### Message broker
 
 - helm install mu-rabbit stable/rabbitmq --namespace rabbit
-- kubectl apply -f ./rabbit-mq
+- kubectl apply -f kubernetes_cluster/rabbit-mq/
 
 ### DB
-- kubectl apply -f ./mongodb
+- kubectl apply -f kubernetes_cluster/mongodb/
 
 ### Roles
-- kubectl apply -f kubernetes_cluster/status-checker
+- kubectl apply -f kubernetes_cluster/status-checker/
 
 ### Service mesh
 - // plan to move to Consul
 
 ### CICD
-- Deploy gitlab
+- Deploy gitlab (https://docs.gitlab.com/ee/install/docker.html)
+
+### CICD
+- Deploy argocd (read README kubernetes_cluster/argocd)
+
+### DNS (for ingress)
+- kubectl apply -f kubernetes_cluster/bind/
+
+### Ingress
+- Deploy bind (read README kubernetes_cluster/ingress-controller)
 
 ### Fix configs
 
-* app/config/keys.js
+
+* REPO marketplace-fe-portal
+  * app/config/keys.js 
     - amq: replace connection string 
     - mongiURI: replace connection string 
     - jwt: replace to a random string
-* /backends/deletion/config/keys.js
+* REPO marketplace-be-deletion
+   * config/keys.js
     - amq: replace connection string 
     - gitlabpipelinetoken: 
     - gitlabtoken:
     - gitlaburl
     - gitlabpipeline
-* /backends/deployment/config/keys.js
+* REPO marketplace-be-deployment
+    * config/keys.js
     - amq: replace connection string 
     - gitlabpipelinetoken: 
     - gitlabtoken:
     - gitlaburl
     - gitlabpipeline
- * /backends/putStatus/config/keys.js
+* REPO marketplace-be-putstatus
+    * config/keys.js ()
     - amq: replace connection string 
     - gitlabpipelinetoken: 
     - gitlabtoken:
     - gitlaburl
     - gitlabpipeline   
     - mongiURI: replace connection string 
- * /backends/putStatus/config/ca.crt
+    * config/ca.crt
     -  replace with k8s api crt
- * /backends/putStatus/config/keys.js
+ * repo marketplace-be-statuschecker
+    * config/keys.js 
     - TOKEN: token of a service account created in kubernetes_cluster/status-checker
     - kubernetesAPI: replace to your k8s api endpoint   
     - mongiURI: replace connection string 
