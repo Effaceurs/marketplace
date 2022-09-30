@@ -137,14 +137,16 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
 Page to log in into your account
 
 ### 2. Registration
-Click on registration button and provide a valid email + password. 
-No email confirmation yet implemented
+Click on registration button and provide a valid email, username and password. 
+No email confirmation yet implemented.
+Upon creation of user there is a group with the same username is created.
 
 ### 3. Log in into your account
 Fill in the gaps with your email and password. Passwords are stored in the DB in encrypted format.
 
 ### 4. My applications page
-There are no yet any applications running in your account.
+There are no yet any applications running neither in your account or in accounts with whom you share a group membership. 
+for instance if you are a member of group MYGROUP and account USER is also a member of group MYGROUP, then you both can see and manage applications that have been deployed within both accounts.
 
 ### 5. Catalogue page
 The list of application that you can provision for your need.
