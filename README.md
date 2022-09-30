@@ -100,21 +100,21 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
     - mongiURI: replace connection string 
     - jwt: replace to a random string
 * REPO marketplace-be-deletion
-   * config/keys.js
+  * config/keys.js
     - amq: replace connection string 
     - gitlabpipelinetoken: 
     - gitlabtoken:
     - gitlaburl
     - gitlabpipeline
 * REPO marketplace-be-deployment
-    * config/keys.js
+  * config/keys.js
     - amq: replace connection string 
     - gitlabpipelinetoken: 
     - gitlabtoken:
     - gitlaburl
     - gitlabpipeline
 * REPO marketplace-be-putstatus
-    * config/keys.js ()
+  * config/keys.js ()
     - amq: replace connection string 
     - gitlabpipelinetoken: 
     - gitlabtoken:
@@ -123,8 +123,8 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
     - mongiURI: replace connection string 
     * config/ca.crt
     -  replace with k8s api crt
- * repo marketplace-be-statuschecker
-    * config/keys.js 
+* repo marketplace-be-statuschecker
+  * config/keys.js 
     - TOKEN: token of a service account created in kubernetes_cluster/status-checker
     - kubernetesAPI: replace to your k8s api endpoint   
     - mongiURI: replace connection string 
