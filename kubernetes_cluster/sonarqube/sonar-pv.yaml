@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: sonar-data
+spec:
+  storageClassName: manual 
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 10Gi
+  hostPath:
+    path: /data/sonar
+  persistentVolumeReclaimPolicy: Retain
+  volumeMode: Filesystem
