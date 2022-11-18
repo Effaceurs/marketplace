@@ -36,11 +36,11 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
 
 ## 5. Overview schema
 <a name="Overview_schema"></a>
-<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/app.jpg"/>
+<img src="https://gitlab.com/marketplace1337/marketplace/-/raw/main/description/app.jpg"/>
 
 ## 6. Marketplace components CI/CD
 <a name="Marketplace_components_CI/CD"></a>
-<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/deployment.jpg"/>
+<img src="https://gitlab.com/marketplace1337/marketplace/-/raw/main/description/deployment.jpg"/>
 * 1. Dev pushes a new version of marketplace component to repo
 * 2. Trigger gitlab pipeline
 * 3. Unit test
@@ -131,7 +131,7 @@ Marketplace is a web-based application that leverage IAC approach  to provision 
 
 ## 8. Walkthrough. 
 <a name="Walkthrough"></a>
-<img src="https://gitlab.com/effaceurs90/marketplace/-/raw/main/description/work.gif"/>
+<img src="https://gitlab.com/marketplace1337/marketplace/-/raw/main/description/work.gif"/>
 
 ### 1. Login Page
 Page to log in into your account
